@@ -1,0 +1,41 @@
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .main-body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: row;
+    }
+
+
+    #brief-article {
+        flex: 1;
+        background: #ccc;
+        overflow-y: scroll;
+        padding: 0 1rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+
+
+    #detail-article {
+        flex: 3;
+        background: rgb(30, 30, 30);
+        overflow-y: scroll;
+        padding: 0rem 2rem;
+        color: #ccc;
+        position: relative;
+    }
+
+    #article-content {
+        flex: 1;
+        height: 100%;
+        overflow-y: scroll;
+
+    }
