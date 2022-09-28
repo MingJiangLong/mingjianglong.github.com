@@ -29,27 +29,27 @@ interface Window {
  * @param styles 
  * @param dom 
  */
-function addStyle(styles: CSSStyleDeclaration, dom: HTMLElement): void
+declare function addStyle(styles: CSSStyleDeclaration, dom: HTMLElement): void
 /**
  * 根据id查找节点
  * @param key 
  */
-function findElementById(key: string): HTMLElement | null
+declare function findElementById(key: string): HTMLElement | null
 /**
  * 移除子节点
  * @param dom 
  */
-function clearChildren(dom: HTMLElement): void
+declare function clearChildren(dom: HTMLElement): void
 
 /**
  * 创建子节点
  * @param tagName 
  * @param options 
  */
-function createElement(tagName: keyof HTMLElementTagNameMap, options?: ElementCreationOptions | undefined): HTMLDivElement
+declare function createElement(tagName: keyof HTMLElementTagNameMap, options?: ElementCreationOptions | undefined): HTMLDivElement
 /**
  * 添加子元素
  * @param nodes 
  * @param dom 
  */
-function appendChildren(nodes: Node | Node[], dom: HTMLElement): void
+declare function appendChildren(nodes: Node | Node[], dom: HTMLElement): void

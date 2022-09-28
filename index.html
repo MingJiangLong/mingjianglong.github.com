@@ -11,9 +11,26 @@
 </head>
 
 <body>
-    <div class="main-body">
-        <div id="brief-article"> </div>
-        <div id="detail-article"></div>
+    <div class="contain">
+        <div class="top-nav">
+            <div>
+                <span style="color: rgb(106, 166, 218);">console.</span>
+                <span style="color: rgb(203, 203, 159);">log</span>
+                <span style="color: rgb(210, 114, 207);">(</span>
+                <span style="color: rgb(187, 138, 117);">"Hello,world"</span>
+                <span style="color:  rgb(210, 114, 207);">)</span>
+            </div>
+        </div>
+        <div class="notice" id="notice">
+            <div>
+                人面不知何处去,桃花依旧笑春风
+            </div>
+        </div>
+        <div class="main-body">
+            <div id="brief-article"> </div>
+            <div id="detail-article"></div>
+        </div>
+        <div id="footer" class="footer"></div>
     </div>
 </body>
 
@@ -24,6 +41,8 @@
 <script>
     window.onload = () => {
         genArticleBrief()
+        createObserveOnNotice()
+        createObserveOnFooter()
     }
 </script>
 <style>
