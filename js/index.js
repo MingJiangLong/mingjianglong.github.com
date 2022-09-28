@@ -56,24 +56,7 @@ function genArticleBrief() {
 
 }
 
-function createObserveOnFooter() {
-    let element = findElementById("footer")
-    if (!element) return;
-    new IntersectionObserver((entries, observer) => {
-        let [{ isIntersecting }] = entries;
-        let briefTitle = findElementById("brief-article");
-        if (!briefTitle) return;
-        if (isIntersecting) {
-            addStyle({
-                height: "calc(100vh - 10rem - 1rem)"
-            }, briefTitle)
-        } else {
-            addStyle({
-                height: "calc(100vh - 5rem)"
-            }, briefTitle)
-        }
-    }, { threshold: 1.0 }).observe(element);
-}
+
 function createObserveOnNotice() {
     let element = findElementById("notice")
     if (!element) return;
@@ -98,4 +81,11 @@ function createObserveOnNotice() {
             addStyle({ marginLeft: '22rem' }, article)
         }
     }, { threshold: 1.0 }).observe(element);
+}
+
+function setBriefHeight() {
+    const titleElement = findElementById('brief-article')
+    const contentElement = findElementById("detail-article");
+    if (!titleElement || !contentElement) return;
+    addStyle({ height: contentElement.offsetHeight }, titleElement)
 }
