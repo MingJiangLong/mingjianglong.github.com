@@ -1,6 +1,11 @@
     body {
         margin: 0;
         padding: 0;
+        overflow-x: hidden;
+    }
+
+    .contain {
+        margin-top: 5rem;
     }
 
     .top-nav {
@@ -27,35 +32,25 @@
         padding-left: 2rem;
     }
 
-    .contain {
-        width: 100vw;
-        margin-top: 5rem;
-        min-height: 100vh;
-        overflow-y: scroll;
-    }
+
 
     .main-body {
         margin-left: 10rem;
         margin-right: 10rem;
         display: flex;
         flex-direction: row;
-        position: relative;
     }
 
-    .footer {
-        height: 5rem;
-        background: white;
-    }
 
 
     #brief-article {
         width: 20rem;
         min-height: calc(100vh - 10rem);
         background: #ccc;
-        overflow-y: scroll;
         padding: 0 1rem;
         font-size: 1.5rem;
         font-weight: bold;
+        overflow-y: scroll;
         font-family: 'Times New Roman', Times, serif;
     }
 
@@ -64,14 +59,9 @@
     #detail-article {
         flex: 1;
         background: rgb(30, 30, 30);
+        overflow-y: hidden;
         padding: 0rem 2rem;
         color: #ccc;
+        overflow: hidden;
         min-height: calc(100vh - 5rem);
-    }
-
-    #article-content {
-        flex: 1;
-        height: 100%;
-        overflow-y: scroll;
-
     }

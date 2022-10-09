@@ -1,5 +1,5 @@
 
-
+const DIV = 'div';
 
 /**
  * 修改文章详情
@@ -22,13 +22,13 @@ function genArticleBrief() {
     if (!element) return;
     const titleContainerArr = []
     Array.isArray(window.MDfiles) && window.MDfiles.forEach((article, index) => {
-        const titleContainer = createElement('div')
+        const titleContainer = createElement(DIV)
         titleContainerArr.push(titleContainer);
 
-        const titleLabel = createElement('div');
+        const titleLabel = createElement(DIV);
         titleLabel.innerText = article.name;
 
-        const timeLabel = createElement('div');
+        const timeLabel = createElement(DIV);
         const date = new Date(article.createTime);
         timeLabel.innerText = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
         addStyle({ fontSize: '12px', paddingTop: '0.2rem' }, timeLabel)
@@ -66,7 +66,7 @@ function createObserveOnNotice() {
         let [{ isIntersecting }] = entries;
         let briefTitle = findElementById("brief-article");
         let article = findElementById("detail-article");
-        if (!briefTitle) return;
+        if (!briefTitle || !article) return;
         if (isIntersecting) {
             addStyle({
                 position: 'static',
