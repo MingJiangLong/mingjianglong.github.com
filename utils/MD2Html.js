@@ -19,9 +19,9 @@ const PARSE_FN = {
 
 const Rule = {
     /** 标题 */
-    Title: /(#+)\s(.+)\r\n/g,
+    Title: /(#+)\s(.+)/g,
     /** 换行 */
-    LineBreak: /\r\n\r\n/g,
+    LineBreak: /\r\n/g,
     /** 链接 */
     ALink: /\[([^\]]*)\]\(([^\)]*)\)/g,
     /** 标记 */
@@ -31,7 +31,7 @@ const Rule = {
     /** 代码片段 */
     Code: /\r\n```[a-zA-Z]*\r\n([^`]*)\r\n```/g,
     /** 提示 */
-    Tip: /\r\n>\s(.*)/gm
+    Tip: /(\r\n>\s(.*))+/g
 
 }
 
@@ -83,7 +83,7 @@ class MD2Html {
      */
     parseLineBreak() {
         return this.callback(PARSE_FN.LineBreak, () => {
-            this.str = this.str.replace(Rule.LineBreak, '<div style="height:2rem;background:white"></div>')
+            this.str = this.str.replace(Rule.LineBreak, '<br/>')
         })
     }
 
@@ -118,8 +118,8 @@ class MD2Html {
      */
     parseTip() {
         return this.callback(PARSE_FN.Tip, () => {
-            this.str = this.str.replace(Rule.Tip, (v, v1) => {
-                return `\r\n<div style="background:#F8F8F8;color:#02555f;padding:1rem 1rem; border-left: 0.5rem solid blue">${v1}</div>`;
+            this.str = this.str.replace(Rule.Tip, (v, v1, v2) => {
+                return `\r\n<div style="background:#F8F8F8;color:#02555f;padding:0.5rem 1rem; border-left: 0.5rem solid blue">${v2}</div>`;
             })
         })
     }
