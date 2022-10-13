@@ -105,14 +105,14 @@ class MD2Html {
     parseTip() {
         return this.callback(PARSE_FN.Tip, () => {
             this.str = this.str.replace(/\r\n>\s(.*)/gm, (v, v1) => {
-                return `<div style="background:#F8F8F8;color:#02555f;padding:1rem 1rem; border-left: 0.5rem solid blue">${v1}</div>`;
+                return `\r\n<div style="background:#F8F8F8;color:#02555f;padding:1rem 1rem; border-left: 0.5rem solid blue">${v1}</div>`;
             })
         })
     }
     parseCode() {
         return this.callback(PARSE_FN.Code, () => {
             this.str = this.str.replace(/\r\n```[a-zA-Z]*\r\n([^`]*)\r\n```\r\n/g, (v, v1) => {
-                return `<div style="background:black;color:white;padding:1rem 1rem;margin:1rem 0">${v1}</div>`;
+                return `\r\n<div style="background:black;color:white;padding:1rem 1rem;">${v1}</div>\r\n`;
             })
         })
     }
@@ -125,6 +125,14 @@ class MD2Html {
         })
     }
 
+    parseBold() {
+        return this.callback(PARSE_FN.Bold, () => {
+            this.str = this.str.replace(/\*\*([^*]+)\*\*/g, (v, v1) => {
+                return `<span style="font-weight:bold;font-size:16px">${v1}</span>`
+            })
+        })
+    }
+
     parse() {
         return this.parseTitle()
             .parseCode()
@@ -133,6 +141,7 @@ class MD2Html {
             .parseTip()
             .parseLineBreak()
             .parseMark()
+            .parseBold()
             .str
     }
 
