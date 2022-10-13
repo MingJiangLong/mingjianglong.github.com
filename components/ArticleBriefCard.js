@@ -26,7 +26,7 @@ function ArticleBriefCard(props) {
     }, title)
 
     const timeDom = document.createElement('div');
-    timeDom.textContent = "Aug 14, 2016"
+    timeDom.textContent = formatTime(props.time)
 
     addStyle({ padding: '1rem 0', textAlign: 'right' }, timeDom)
 
