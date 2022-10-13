@@ -24,7 +24,7 @@ function renderArticleInfo(key) {
  */
 function renderArticleBrief(dom) {
 
-    articles.forEach(item => {
+    Array.isArray(window.MDfiles) && window.MDfiles.forEach(item => {
         dom.appendChild(ArticleBriefCard(item))
     })
 }
