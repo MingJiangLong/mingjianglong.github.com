@@ -1,6 +1,6 @@
 const NavInfo = {
     name: 'Jiang Long',
-    des: '🐟 专业浑水摸鱼',
+    des: '🐟 专业混水摸鱼',
     imageUrl: 'asset/images/avatar.png',
     navItems: [
         { name: '首页', route: "", key: "Home" },
