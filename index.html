@@ -5,43 +5,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>行走的蒲公英</title>
+    <title>Jiang的小站</title>
     <link rel="shortcut icon" href="./asset/ico/title.ico">
     <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 
 <body>
     <div class="contain">
-        <div class="top-nav">
-            <div>
-                <span style="color: rgb(106, 166, 218);">console.</span>
-                <span style="color: rgb(203, 203, 159);">log</span>
-                <span style="color: rgb(210, 114, 207);">(</span>
-                <span style="color: rgb(187, 138, 117);">"Hello,world"</span>
-                <span style="color:  rgb(210, 114, 207);">)</span>
-            </div>
+        <div class="left-container">
+            <img class="my-avatar" />
+            <div class="my-name"></div>
+            <div class="my-desc"></div>
+            <div class="nav-container"></div>
         </div>
-        <div class="notice" id="notice">
-            <div>
-                平平无奇,无事发生
-            </div>
-        </div>
-
-        <div class="main-body">
-            <div id="brief-article"></div>
-            <div id="detail-article"></div>
-        </div>
+        <div class="right-container"></div>
     </div>
 </body>
-
-<script src="./lib/markdown.js"></script>
-<script src="./article/index.js"></script>
 <script src="./utils/index.js"></script>
-<script src="./js/index.js"></script>
 <script>
     window.onload = () => {
-        genArticleBrief()
-        createObserveOnNotice()
+        loadJS([
+            "./article/copy.js",
+            "./lib/markdown.js",
+            "./article/index.js",
+            "./js/index.js",
+            "./utils/MD2Html.js",
+            "./config/navInfo.js",
+            "./components/Article.js",
+            "./components/ArticleBriefCard.js",
+            "./render/renderArticleInfo.js",
+            "./render/renderNav.js"
+        ], () => {
+            renderNav()
+        })
     }
 </script>
 <style>
