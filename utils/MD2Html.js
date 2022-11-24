@@ -14,7 +14,8 @@ const PARSE_FN = {
     Code: 'Code',
     Tip: "Tip",
     Mark: "Mark",
-    Bold: "Bold"
+    Bold: "Bold",
+    Space: 'Space'
 }
 
 const Rule = {
@@ -31,12 +32,26 @@ const Rule = {
     /** 代码片段 */
     Code: /\r\n```[a-zA-Z]*\r\n([^`]*)\r\n```/g,
     /** 提示 */
-    Tip: /(\r\n>\s(.*))+/g
+    Tip: /(\r\n>\s(.*))+/g,
+    Space1: /(<div[^>]*>)(.*)(<\/div>)/g,
+    Space2: /(<span[^>]*>)(.*)(<\/span>)/g,
+    Space3: /(<h[1-9][^>]]*>)(.*)(<h[1-9]>)/g,
+    Space4: /(<a[^>]*>)(.*)(<\/a>)/g,
 
 }
 
+/**
+ * 代码片段可能和md标签格式冲突 优先处理
+ * 换行符和空白逐个类型替换 不统一替换
+ */
 class MD2Html {
 
+
+
+
+    use() {
+
+    }
     /**
      * 解析顺序
      */
@@ -66,6 +81,7 @@ class MD2Html {
 
     /**
      * 解析title
+     * 要注意区分代码片段和普通文字'#'
      * @param {()=>string} [callback] 
      * @returns 
      */
@@ -132,7 +148,10 @@ class MD2Html {
     parseCode() {
         return this.callback(PARSE_FN.Code, () => {
             this.str = this.str.replace(Rule.Code, (v, v1) => {
-                return `\r\n<div style="background:black;color:white;padding:1rem 1rem;">${v1}</div>\r\n`;
+                v1 = v1.replace(/(?<=\r\n)([\s]+)/g, (v) => {
+                    return new Array(v.length).fill('&nbsp').join("")
+                })
+                return `\r\n<div code style="background:black;color:white;padding:1rem 1rem;">${v1}</div>\r\n`;
             })
         })
     }
@@ -167,9 +186,9 @@ class MD2Html {
             .parseALink()
             .parseRadius()
             .parseTip()
-            .parseLineBreak()
             .parseMark()
             .parseBold()
+            .parseLineBreak()
             .str
     }
 
