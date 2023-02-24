@@ -163,7 +163,7 @@ class MD2Html {
     parseMark() {
         return this.callback(PARSE_FN.Mark, () => {
             this.str = this.str.replace(Rule.Mark, (v, v1) => {
-                return `<span style="color:#CB814F;font-size:16px">${v1}</span>`
+                return `<span style="color:#CB814F;font-size:1.2rem">${v1}</span>`
             })
         })
     }
@@ -175,7 +175,7 @@ class MD2Html {
     parseBold() {
         return this.callback(PARSE_FN.Bold, () => {
             this.str = this.str.replace(Rule.Bold, (v, v1) => {
-                return `<span style="font-weight:bold;font-size:16px">${v1}</span>`
+                return `<span style="font-weight:bold;font-size:1.2rem">${v1}</span>`
             })
         })
     }

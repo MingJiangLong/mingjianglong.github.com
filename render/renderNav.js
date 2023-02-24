@@ -15,7 +15,7 @@ function renderNav() {
     NavInfo.navItems.forEach((item, index) => {
         const itemDom = document.createElement('div');
         itemDom.textContent = item.name;
-        addStyle({ padding: '0.7rem 0' }, itemDom)
+        addStyle({ padding: '1rem 0','font-size':'1.8rem' }, itemDom)
 
         itemDom.onclick = () => {
             renderArticleInfo(item.key)

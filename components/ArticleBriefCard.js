@@ -36,7 +36,7 @@ function ArticleBriefCard(props) {
     container.appendChild(timeDom);
 
     addStyle({
-        boxShadow: "0 0 5px #ccc",
+        boxShadow: "0 0 1rem #ccc",
         padding: '1rem',
         borderRadius: '0.2rem'
     }, container)
