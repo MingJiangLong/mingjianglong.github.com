@@ -32,6 +32,11 @@
         setRootRem()
         window.addEventListener('resize', setRootRem)
 
+        function onPopState() {
+            location.reload()
+        }
+
+        window.addEventListener('onpopstate', onPopState)
         loadJS([
             "./utils/time.js",
             "./article/index.js",
