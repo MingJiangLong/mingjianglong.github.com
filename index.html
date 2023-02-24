@@ -27,7 +27,7 @@
         function setRootRem() {
             const root = document.documentElement;
             const scale = root.clientWidth / 100;
-            root.style.fontSize = scale + 'px'
+            root.style.fontSize = `${scale}px`
         }
         setRootRem()
         window.addEventListener('resize', setRootRem)
