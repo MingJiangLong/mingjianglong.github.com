@@ -1,0 +1,44 @@
+.card{
+   margin: auto;
+  width: 90%;
+  min-height: 10em;
+  padding: 2em;
+
+  margin-top: 2em;
+  /* background-color: pink; */
+  box-shadow: 0 0 2em #ccc;
+  border-radius: 1em
+}
+
+.desc{
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 1em 2em;
+  letter-spacing: .02em;
+}
+
+.tag-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.card:hover {
+  animation: bcs 0.5s 1;
+  animation-fill-mode: forwards;
+  -webkit-animation: bcs 0.5s 1;
+  -webkit-animation-fill-mode: forwards;
+
+}
+
+
+@keyframes bcs {
+  from {
+      transform: scale(1);
+  }
+
+  to {
+
+      transform: scale(1.05);
+  }
+}

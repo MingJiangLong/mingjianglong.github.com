@@ -1,0 +1,21 @@
+
+.search-bar-container{
+  position: sticky;
+  top: 0;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  height: 4.5em;
+  z-index: 900;
+  box-shadow: 0 0 2em #ccc;
+}
+.search-input{
+  width: 70%;
+  height: 70%;
+  border-radius:2em;
+  margin-left: 2em;
+  padding: .5em 1em;
+  border-color: #ccc;
+}

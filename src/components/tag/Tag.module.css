@@ -1,0 +1,8 @@
+.tag{
+  background: blueviolet;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 14px;
+  transform: scale(0.9);
+}
