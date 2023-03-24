@@ -10,7 +10,7 @@ export default function BlogCard(props: BlogCardProps) {
   const { title, desc, tag, createTime, lastUpdateTime, id } = props
   const router = useRouter()
   function onCardClick() {
-    router.push({ pathname: "/blog/detail", query: { id } })
+    router.push({ pathname: `/blog/detail/${id}` })
   }
   return (
     <>

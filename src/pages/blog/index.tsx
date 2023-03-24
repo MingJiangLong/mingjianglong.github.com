@@ -11,7 +11,6 @@ export default function BlogList(props: BlogListProps) {
   const [searchValue, setSearchValue] = useState("")
 
   const blogs = useMemo(() => {
-    console.log(searchValue)
     return data.filter(item => {
       const regexp = new RegExp(searchValue)
       return (
