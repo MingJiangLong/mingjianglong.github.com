@@ -1,7 +1,7 @@
 # Blog
 
 记录开发日常,ε=(´ο｀*)))唉太难了，找工作总是有傻屌问我有没有blog
-<!-- [博客说明，吐槽] -->
+<!-- [吐槽] -->
 ## Getting Started
 
 项目MD文件需要放在`/blogs`目录下，执行`/savaBlogs.js`会遍历blogs目录下所有md文件并格式化成json放在`/data/index.js`文件中;

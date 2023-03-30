@@ -1,0 +1,40 @@
+# NextJS打包相关问题
+
+NextJS打包相关问题以及解决办法，更多参见[Next文档](https://www.nextjs.cn/)
+<!-- [Next,打包] -->
+
+>Eslint、Ts类型校验关闭
+```js
+  // next.config.js
+
+  const nextConfig = {
+  
+    eslint:{
+      ignoreDuringBuilds:true
+    },
+      typescript: {
+      // !! WARN !!
+      // Dangerously allow production builds to successfully complete even if
+      // your project has type errors.
+      // !! WARN !!
+      ignoreBuildErrors: true,
+    }
+  }
+```
+
+
+
+> Image Optimization using Next.js' default loader is not compatible with `next export`.
+
+```JS
+module.exports = {
+  // https://github.com/vercel/next.js/issues/21079
+  // Remove this workaround whenever the issue is fixed
+  images: {
+    loader: 'imgix',
+    path: '',
+  },
+}
+```
+
+> 图片加载不出来

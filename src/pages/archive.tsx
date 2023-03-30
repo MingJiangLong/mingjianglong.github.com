@@ -51,7 +51,7 @@ export default function () {
                     paddingTop: 10,
                     paddingLeft: 20,
                   }}
-                  href={`/blog/detail/?id=${blog.id}`}
+                  href={`/blog/detail/${blog.id}`}
                   key={`${blog.title}_${blog.id}_${index}`}
                 >
                   {blog.title}

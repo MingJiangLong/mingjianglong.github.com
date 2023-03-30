@@ -1,6 +1,9 @@
 const fs = require("fs")
 const path = require("path");
 
+/**
+ * @type{NormalBlogData[]}
+ */
 const OldMDJsonData = require("./data");// 已有json数据
 const MDFileDir = path.join(__dirname, "./blogs");// md文件目录
 
@@ -13,16 +16,8 @@ function isMdFile(fileName) {
   return fileName.endsWith('.md') || fileName.endsWith('MD')
 }
 
-function findExistFile(title) {
+function findExistBlogJsonByTitle(title) {
   return OldMDJsonData.find(item => item.title === title)
-}
-
-/**
- * 是否为已存在文章
- * @param {string} fileTitle 
- */
-function isExistFile(fileTitle) {
-  return !!OldMDJsonData.find(item => item.title === params)
 }
 
 /**
@@ -44,8 +39,7 @@ function getBlogTitle(fileContent) {
   const regexp = /#\s(.+)/
   const result = regexp.exec(fileContent);
   if (!result) throw new Error('md文件内容不符合规范,首行应该以 `# 文章名`开始')
-  const [, title] = result
-  return title;
+  return result[result.length - 1];
 }
 
 /**
@@ -54,16 +48,15 @@ function getBlogTitle(fileContent) {
  * @param {*} fileContent 
  */
 function getBlogDesc(fileContent) {
-  const regexp = /#\s.+\r\n?|\n(.+)/
+  const regexp = /#\s.+(\r\n?|\n)*(.+)/
   const result = regexp.exec(fileContent);
   if (!result) return '~~暂无简述'
-  const [, title] = result
-  return title;
+  return result[result.length - 1]
 }
 
 /**
  * 获取Blog 标签
- * 格式 <!-- [标签1,标签2] -->
+ * 格式 <!-- ['标签1','标签2'] -->
  * @param {*} fileContent 
  */
 function getBlogTags(fileContent) {
@@ -72,12 +65,17 @@ function getBlogTags(fileContent) {
     const result = regexp.exec(fileContent);
     if (!result) return []
 
-    return result[1].split(',')
+    return result[result.length - 1].split(",")
   } catch (error) {
     return []
   }
 }
 
+function getInitPrimaryKey() {
+  if (!OldMDJsonData.length) return 0;
+  console.log(Math.max(OldMDJsonData.map(item => item.id)));
+  return Math.max(...OldMDJsonData.map(item => item.id));
+}
 function readAllMDAndWrite() {
 
   // 读取的目录下所有的文件名
@@ -86,23 +84,25 @@ function readAllMDAndWrite() {
   // 选取md文件名
   MDFileNameList = MDFileNameList.filter(MDFileName => isMdFile(MDFileName));
 
-  let primaryKey = OldMDJsonData.length;
+  let primaryKey = getInitPrimaryKey();
 
   const newMDJsonData = MDFileNameList.map(MDFileName => {
     const MDFileStr = readFromMDFile(MDFileName)
     const title = getBlogTitle(MDFileStr);
-    const existFile = findExistFile(MDFileName);
+    const existBlogJson = findExistBlogJsonByTitle(title);
     const desc = getBlogDesc(MDFileStr);
     const tags = getBlogTags(MDFileStr);
     // 是否有文件的历史记录
-    if (existFile && existFile.content !== MDFileStr) {
-      existFile.content = MDFileStr;
-      existFile.lastUpdateTime = new Date().getTime();
-      return null;
+    if (!!existBlogJson && existBlogJson.content !== MDFileStr) {
+      existBlogJson.content = MDFileStr;
+      existBlogJson.lastUpdateTime = new Date().getTime();
+      existBlogJson.tags = tags
+      existBlogJson.desc = desc
+      return;
     }
-    primaryKey++;
+    if (!!existBlogJson && existBlogJson.content === MDFileStr) return;
     return {
-      id: primaryKey,
+      id: ++primaryKey,
       title,
       desc,
       tag: tags,
@@ -116,6 +116,18 @@ function readAllMDAndWrite() {
 }
 
 function mergeJson() {
+
+}
+
+/**
+ * 移除BLOG JSON数据
+ * @param {*} title 
+ */
+function deleteBlogs(title) {
+
+  const i = OldMDJsonData.findIndex(item => item.title === title)
+  if (i == -1) return;
+  OldMDJsonData.splice(i, 1);
 
 }
 function syncMDFilesData() {

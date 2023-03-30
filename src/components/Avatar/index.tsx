@@ -14,7 +14,7 @@ export default function Avatar(props: AvatarProps) {
           alt="avatar"
           width="100"
           height="100"
-          className={styles["image"]}
+          className={styles["avatar"]}
         />
         <h2 >龙江</h2>
         <h3 style={{fontWeight:'normal',paddingTop:'.6em',color:'grey'}}>Jiang Long</h3>

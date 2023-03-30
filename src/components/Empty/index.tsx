@@ -18,7 +18,7 @@ export default function Empty(props: EmptyProps) {
           marginTop:"10em"
         }}
       />
-      <img />
+      {/* <img /> */}
       <h5 style={{marginTop:'2em'}}>没得咯~</h5>
     </div>
   )

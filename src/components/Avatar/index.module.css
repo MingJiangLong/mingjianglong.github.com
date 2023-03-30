@@ -18,6 +18,40 @@
   display: inline-block;
   margin: 0 5px
 }
+.avatar {
+	/* width: 150px;
+    height: 150px; */
+    
+    height: 9em;
+    width:9em;
+    border-radius: 8em;
+    margin-bottom: 1em;
+	box-sizing: border-box;
+	border: 5px white solid;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+	transform: translatey(0px);
+    animation: float 6s ease-in-out infinite;
+    
+}
+.avatar img{
+
+}
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 12px 15px 0px rgba(0,0,0,0.2);
+		transform: translatey(-12px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+}
 @-moz-keyframes my-face-animate {
   2%,24%,80% {
       -webkit-transform: translate(0,1.5px) rotate(1.5deg);

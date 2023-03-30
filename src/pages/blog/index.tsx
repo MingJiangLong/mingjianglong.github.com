@@ -7,19 +7,20 @@ import SearchBar from "../../components/SearchBar"
  *
  * @param props {BlogListProps}
  */
+
 export default function BlogList(props: BlogListProps) {
   const [searchValue, setSearchValue] = useState("")
 
   const blogs = useMemo(() => {
-    return data.filter(item => {
-      const regexp = new RegExp(searchValue)
+    return data.filter((item:any) => {
+      const regexp = new RegExp(searchValue,'i')
       return (
         regexp.test(item.title) ||
         regexp.test(item.desc) ||
-        item.tag.some(item => regexp.test(item))
+        item.tag.some((item:any) => regexp.test(item))
       )
     })
-  }, [searchValue, data])
+  }, [searchValue])
 
   return (
     <>
@@ -37,7 +38,7 @@ export default function BlogList(props: BlogListProps) {
         {!blogs.length ? (
           <Empty />
         ) : (
-          blogs.map((item, index) => <BlogCard {...item} key={index} />)
+          blogs.map((item:any, index:number) => <BlogCard {...item} key={`${index}`} />)
         )}
       </div>
     </>

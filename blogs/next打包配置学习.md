@@ -1,0 +1,40 @@
+# NextJS打包配置学习
+
+NextJS打包配置对应字段了解，进行简单的打包测试
+<!-- [Next,next.config.js] -->
+> `assetPrefix` 静态资源前缀
+```js
+  const nextConfig = {
+    assetPrefix:'/前缀'
+  }
+```
+
+> `Redirects` 将source原路径重定向到destination新路径，访问的是destination路径;
+```JS
+// 最终访问的是/blog路径,浏览器显示的也是blog路径
+const nextConfig = {
+  redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/blog",
+        permanent: true
+      }
+    ]
+  },
+}
+```
+> `Rewrites`  将原路径充当代理以此来屏蔽目标路径。浏览器显示的是destination路径，实际访问的是source路径；功能类似于**userRouter.push(path,as)**中 参数**as**的功能;
+```JS
+// 浏览器显示的是"/blog"，实际访问的是"/"路径
+const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/',
+        destination: '/blog'
+      }
+    ]
+  },
+}
+```

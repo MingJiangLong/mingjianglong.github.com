@@ -1,7 +1,7 @@
 /**
  * 为了让导航栏可配置 还是需要记录route啊
  */
-export default [
+  export default [
   {
     path: "/blog",
     title: "Blog",

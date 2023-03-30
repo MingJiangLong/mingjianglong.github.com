@@ -16,6 +16,7 @@
   height: 70%;
   border-radius:2em;
   margin-left: 2em;
-  padding: .5em 1em;
-  border-color: #ccc;
+  padding: .5em 2.5em;
+  border: 2px solid #ccc;
+  /* border-color: #ccc; */
 }

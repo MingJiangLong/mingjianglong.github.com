@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import React, { useMemo } from "react"
 import data from "../../../../data"
 import "@uiw/react-markdown-preview/dist/markdown.css";
+// import "@uiw/react-md-editor/dist/mdeditor.css"
 const EditorMarkdown = dynamic<any>(
   () =>
     import("@uiw/react-md-editor").then(mod => {
@@ -32,12 +33,13 @@ export default function (props: BlogDetailProps) {
         height: "100%",
         overflow: "scroll",
       }}
-      data-color-mode="dark"
+      // data-color-mode="dark"
     >
       <EditorMarkdown
+        
         data-color-mode="dark"
         source={blogInfo?.content}
-        style={{ whiteSpace: "pre-wrap",padding:"1em 2em" }}
+        style={{ whiteSpace: "pre-wrap",padding:"1em 2em",minHeight:"100%" }}
       />
     </div>
   )
