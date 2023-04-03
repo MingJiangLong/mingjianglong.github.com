@@ -3,7 +3,7 @@ const removeImports = require("next-remove-imports")();
 const debug = process.env.NODE_ENV !== "production";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: !debug ? '/mingjianglong.github.io/' : '',
+  basePath: !debug ? '/mingjianglong.github.io' : '',
   assetPrefix: !debug ? '/mingjianglong.github.io/' : '',
   images: {
     // default, imgix, cloudinary, akamai
