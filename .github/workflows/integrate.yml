@@ -5,6 +5,9 @@ on:
       - blog-next
 jobs:
   build-and-deploy:
+    # 虚拟机环境 ubuntu-latest，ubuntu-18.04或ubuntu-16.04
+    # windows-latest，windows-2019或windows-2016
+    # macOS-latest或macOS-10.14
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +23,9 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install and Build
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
+        with:
+          node-version:16
       - run: npm install
       - run: npm run build
       - run: npm run export
