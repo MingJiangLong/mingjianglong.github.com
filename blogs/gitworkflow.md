@@ -1,3 +1,11 @@
+# Git Workflow
+解决开发之后需要做的事，打包上线
+<!-- [Git Workflow] -->
+
+在项目根目录添加 .github/workflows/integrate.yml
+
+NextJS 示例
+```yml
 name: Build and Deploy
 on: 
   push:
@@ -8,8 +16,8 @@ jobs:
     # 虚拟机环境 ubuntu-latest，ubuntu-18.04或ubuntu-16.04
     # windows-latest，windows-2019或windows-2016
     # macOS-latest或macOS-10.14
-    runs-on: ubuntu-latest
-    # runs-on: windows-latest
+    # runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
@@ -39,3 +47,4 @@ jobs:
           BRANCH: lj-pages
           FOLDER: out # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
+```
