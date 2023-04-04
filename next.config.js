@@ -20,8 +20,8 @@ const nextConfig = {
       '/': { page: '/' },
     }
   },
-  basePath: !debug ? '/mingjianglong.github.io/' : '',
-  assetPrefix: !debug ? '/mingjianglong.github.io/' : '',
+  basePath: !debug ? '/mingjianglong.github.io' : '',
+  assetPrefix: !debug ? '/mingjianglong.github.io' : '',
 }
 // const nextConfig = {
 //   basePath: !debug ? '/mingjianglong.github.io' : '',
