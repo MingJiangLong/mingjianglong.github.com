@@ -1,12 +1,9 @@
 {
   "presets": [
-    "@babel/preset-env"
-  ],
-  "plugins": [
     [
-      "@babel/plugin-transform-runtime",
+      "preact-cli/babel",
       {
-        "corejs": 3
+        "modules": "commonjs"
       }
     ]
   ]
