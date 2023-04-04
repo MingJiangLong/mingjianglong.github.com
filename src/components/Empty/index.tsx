@@ -6,8 +6,16 @@ import React from "react"
  */
 export default function Empty(props: EmptyProps) {
   return (
-    <div style={{ width: "100%", height: "100%",display:'flex',flexDirection:'column',alignItems:"center" }}>
-      <Image
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      {/* <Image
         width="100"
         height="100"
         alt="..."
@@ -17,9 +25,17 @@ export default function Empty(props: EmptyProps) {
           width: "20em",
           marginTop:"10em"
         }}
+      /> */}
+      <img
+        src="/images/nodata.png"
+        alt="..."
+        style={{
+          height: "20em",
+          width: "20em",
+          marginTop: "10em",
+        }}
       />
-      {/* <img /> */}
-      <h5 style={{marginTop:'2em'}}>没得咯~</h5>
+      <h5 style={{ marginTop: "2em" }}>没得咯~</h5>
     </div>
   )
 }
