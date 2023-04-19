@@ -3,23 +3,11 @@ const removeImports = require("next-remove-imports")();
 const debug = process.env.NODE_ENV !== "production";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack5: false,
   webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.node = {
-        fs: 'empty'
-      }
-    }
     config.resolve.alias.images = path.join(__dirname, "images");
     return config
   },
-  pageExtensions: ['ts', 'tsx',],
-  target: 'serverless',
-  exportPathMap: function () {
-    return {
-      '/': { page: '/' },
-    }
-  },
+  pageExtensions: ['mdx', 'jsx', 'js', 'ts', 'tsx'],
   basePath: !debug ? '/mingjianglong.github.io' : '',
   assetPrefix: !debug ? '/mingjianglong.github.io' : '',
 }
