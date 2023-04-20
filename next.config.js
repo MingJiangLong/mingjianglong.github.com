@@ -9,8 +9,8 @@ const nextConfig = {
     return config
   },
   pageExtensions: ['mdx', 'jsx', 'js', 'ts', 'tsx'],
-  basePath: !debug ? '/mingjianglong.github.io' : '',
-  assetPrefix: !debug ? '/mingjianglong.github.io' : '',
+  // basePath: !debug ? '/mingjianglong.github.io' : '',
+  // assetPrefix: !debug ? '/mingjianglong.github.io' : '',
 }
 
 module.exports = removeImports(nextConfig)
