@@ -1,5 +1,6 @@
 
 const removeImports = require("next-remove-imports")();
+const path = require('path')
 const debug = process.env.NODE_ENV !== "production";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
