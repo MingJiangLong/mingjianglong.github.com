@@ -33,9 +33,9 @@ jobs:
       - run: touch out/.nojekyll
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4
+        uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
-          branch: lj-pages
-          folder: out # The folder the action should deploy.
-          clean: true # Automatically remove deleted files from the deploy branch
+          BRANCH: lj-pages
+          FOLDER: out # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
