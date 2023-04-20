@@ -37,7 +37,7 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          SSH: ${{ secrets.DEPLOY_KEY }}
+          SSH: true
           BRANCH: lj-pages
           FOLDER: out # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
