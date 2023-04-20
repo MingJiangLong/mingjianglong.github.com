@@ -34,8 +34,9 @@ jobs:
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          ssh-key: ${{ secrets.DEPLOY_KEY }}
+        # with:
+        #  ['SSH', 'ACCESS_TOKEN', 'GITHUB_TOKEN', 'BRANCH', 'FOLDER', 'TARGET_FOLDER', 'BASE_BRANCH', 'COMMIT_MESSAGE', 'CLEAN', 'CLEAN_EXCLUDE', 'GIT_CONFIG_NAME', 'GIT_CONFIG_EMAIL', 'REPOSITORY_NAME', 'WORKSPACE', 'SINGLE_COMMIT', 'LFS', 'SILENT', 'PRESERVE']
+          SSH: ${{ secrets.DEPLOY_KEY_2 }}
           BRANCH: lj-pages
           FOLDER: out # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
