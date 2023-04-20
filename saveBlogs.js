@@ -91,15 +91,15 @@ function readAllMDAndWrite() {
     const existBlogJson = findExistBlogJsonByTitle(title);
     const desc = getBlogDesc(MDFileStr);
     const tags = getBlogTags(MDFileStr);
-    // 是否有文件的历史记录
+    // 是否有文件的历史记录 
     if (!!existBlogJson && existBlogJson.content !== MDFileStr) {
       existBlogJson.content = MDFileStr;
       existBlogJson.lastUpdateTime = new Date().getTime();
       existBlogJson.tags = tags
       existBlogJson.desc = desc
-      return;
+      return existBlogJson;
     }
-    if (!!existBlogJson && existBlogJson.content === MDFileStr) return;
+    if (!!existBlogJson && existBlogJson.content === MDFileStr) return existBlogJson;
     return {
       id: ++primaryKey,
       title,

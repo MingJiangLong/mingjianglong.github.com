@@ -101,6 +101,18 @@ export default defineConfig(({ mode }) => {
   - 白屏
 
     如果任何报错都没有,建议检查router的模式是否用的是`history`
+  - ts中引入Vue文件报错
+
+    ```ts
+      //增加一个 sfc.d.ts
+      declare module '*.vue' {
+        import { ComponentOptions } from 'vue'
+        const componentOptions: ComponentOptions
+        export default componentOptions
+      }
+    ```
+  
+  
 
 
 
