@@ -5,11 +5,11 @@ const debug = process.env.NODE_ENV !== "production";
 const nextConfig = {
   webpack: (config, { defaultLoaders }) => {
     config.resolve.alias.images = path.join(__dirname, "images");
-    config.module.rules.push({
-      test: /\.(js|mjs)$/,
-      exclude: /@babel(?:\/|\\{1,2})runtime/,
-      use: defaultLoaders.babel,
-    });
+    // config.module.rules.push({
+    //   test: /\.(js|mjs)$/,
+    //   exclude: /@babel(?:\/|\\{1,2})runtime/,
+    //   use: defaultLoaders.babel,
+    // });
     return config
   },
   pageExtensions: ['mdx', 'jsx', 'js', 'ts', 'tsx'],
