@@ -36,10 +36,10 @@ export default function () {
     setTreeData(tempt)
   }, [])
   return (
-    <div style={{ margin: "5em" }}>
+    <div style={{ margin: "5em",overflow:'hidden' }}>
       {treeData.map((tree, index) => {
         return (
-          <div key={index} style={{ marginTop: "2em" }}>
+          <div key={index} style={{ marginTop: "2em", }}>
             <h3>{tree.typeName}</h3>
             <>
               {tree.children.map((blog, index) => (
