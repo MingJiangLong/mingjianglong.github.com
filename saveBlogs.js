@@ -73,7 +73,6 @@ function getBlogTags(fileContent) {
 
 function getInitPrimaryKey() {
   if (!OldMDJsonData.length) return 0;
-  console.log(Math.max(OldMDJsonData.map(item => item.id)));
   return Math.max(...OldMDJsonData.map(item => item.id));
 }
 function readAllMDAndWrite() {
