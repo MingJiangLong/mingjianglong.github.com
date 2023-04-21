@@ -120,6 +120,9 @@ export default defineConfig(({ mode }) => {
 
         // 以下引入可以正常使用
         new Vconsole()
+
+        // 这种也可以
+        app.use(()=>new Vconsole())
       }
     ```
 
