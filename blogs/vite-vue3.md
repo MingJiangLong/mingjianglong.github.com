@@ -101,7 +101,7 @@ export default defineConfig(({ mode }) => {
   - 白屏
 
     如果任何报错都没有,建议检查router的模式是否用的是`history`
-  - ts中引入Vue文件报错
+  * ts中引入Vue文件报错
 
     ```ts
       //增加一个 sfc.d.ts
@@ -111,6 +111,19 @@ export default defineConfig(({ mode }) => {
         export default componentOptions
       }
     ```
+  * vconsole引入
+    ```JS
+      if (import.meta.env.MODE !== 'prod') {
+
+        // 网上的教程大多是下面这种引入，实际上会报错
+        app.use(new Vconsole())
+
+        // 以下引入可以正常使用
+        new Vconsole()
+      }
+    ```
+
+
   
   
 
