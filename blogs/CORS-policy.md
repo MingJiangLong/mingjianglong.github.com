@@ -1,0 +1,59 @@
+# CORS policy
+
+Access to XMLHttpRequest at '\*\*' from origin '\*\*' has been blocked by CORS policy: The request client is not a secure context and the resource is in more-private address space \`private`.
+
+<!-- [CORS-Policy,Chrome] -->
+
+
+![The request client is not a secure context and the resource is in more-private address space 'private'](/public/images/pna.jpg)
+
+
+## 原因
+  与第三方相关。访问私有IP地址时，Chrome 会请求安全连接。Chrome 将弃用从非安全网站访问专用网络端点访问（以前称为 CORS-RFC1918）规范的一部分
+
+
+- [What is Private Network Access](https://developer.chrome.com/blog/private-network-access-update/#what-is-private-network-access)
+- [Chrome's plans to enable CORS-RFC1918](https://developer.chrome.com/articles/cors-rfc1918-feedback/#chrome's-plans-to-enable-cors-rfc1918)
+
+## 解决方法
+
+  前端接口和后端接口统一都用`https`
+
+
+### 什么是IP
+
+  在网络中，每台计算机都有一个唯一的地址，方便别人找到它，这个地址称为IP地址。IP地址是一个网络编码，用来确定网络中的一个节点，是由`32位的二进制`组成
+
+### IP地址的组成 
+
+  IP地址由`网络部分`和`主机部分`两部分组成
+  网络部分标示不同的网络
+  主机部分标示在一个网络中特定的主机
+
+### IP分类
+
+  IP地址的网络部分是由internet地址分配机构来统一分配的，这样可以保证IP的唯一性
+  IP地址中全为1的IP即255.255.255.255 它标示限制广播地址，如果将其作为数据包的目标地址可以理解为发送到所有网络的所有主机
+  IP地址全为0的IP即0.0.0.0 表示启动时的IP地址 含义尚未未分配的IP地址
+  127是用来进行本机测试的，除了127.255.255.255外，其他的`127开头的地址都代表本机`
+
+### 公有IP和私有IP
+私有IP
+  - A类 1-126 每个网络中可以有2的24次方-2台的主机
+  - B类 128-191 最大的主机数为 2的16次方减2
+  - C类 192-223 最大的主机数量是2的8次方减2
+
+其他范围的IP均为公有IP地址
+
+### 区别
+  公有IP地址：
+
+  组建一个企业级网络，需要去向“电信运营商ISP”申请一个接入Internet的宽带，同时ISP还会给我们分配一个或多个IP地址，这些IP地址可以供我们企业内部上网，这些ISP分配给我们的IP，就是公有IP。
+
+  公有地址（Public address，也可称为公网地址）由Internet NIC（Internet Network Information Center因特网信息中心）负责。这些IP地址分配给注册并向Internet NIC提出申请的组织机构。通过它直接访问因特网，它是广域网范畴内的。
+
+  私有IP地址：
+
+  我们企业或家庭内部组建局域网用的IP，一般都会用私有IP。
+  私有地址（Private address，也可称为专网地址）属于非注册地址，专门为组织机构内部使用，它是局域网范畴内的，私有IP禁止出现在Internet中，在ISP连接用户的地方，将来自于私有IP的流量全部都会阻止并丢掉。
+  《如果在企业内部的电脑要访问Internet，则需要在企业边界上用“NAT技术”将私网IP转成公网IP才能正常的上网。》
