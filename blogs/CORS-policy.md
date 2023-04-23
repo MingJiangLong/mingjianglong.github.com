@@ -5,7 +5,7 @@ Access to XMLHttpRequest at '\*\*' from origin '\*\*' has been blocked by CORS p
 <!-- [CORS-Policy,Chrome] -->
 
 
-![The request client is not a secure context and the resource is in more-private address space 'private'](/public/images/pna.jpg)
+![The request client is not a secure context and the resource is in more-private address space 'private'](/md-images/pna.jpg)
 
 
 ## 原因

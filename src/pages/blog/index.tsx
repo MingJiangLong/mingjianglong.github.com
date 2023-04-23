@@ -45,4 +45,7 @@ export default function BlogList(props: BlogListProps) {
   )
 }
 
+// export function getStaticProps() {
+
+// }
 type BlogListProps = {}

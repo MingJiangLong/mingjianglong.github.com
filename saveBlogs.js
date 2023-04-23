@@ -132,5 +132,6 @@ function deleteBlogs(title) {
 function syncMDFilesData() {
   const data = readAllMDAndWrite()
   fs.writeFileSync(path.join("./data/index.js"), `!function (e, r) {"object" == typeof exports && "undefined" != typeof module ?module.exports = r() :"function" == typeof define && define.amd?define(r) :(e = "undefined" != typeof globalThis ? globalThis : e || self).MDFileJsonData = r()}(this, (function () { return ${JSON.stringify(data)}}))`)
+  return data
 }
 syncMDFilesData()
