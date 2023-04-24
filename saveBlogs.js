@@ -97,9 +97,9 @@ function readAllMDAndWrite() {
       existBlogJson.lastUpdateTime = new Date().getTime();
       existBlogJson.tags = tags
       existBlogJson.desc = desc
-      return existBlogJson;
+      return;
     }
-    if (!!existBlogJson && existBlogJson.content === MDFileStr) return existBlogJson;
+    if (!!existBlogJson && existBlogJson.content === MDFileStr) return;
     return {
       id: ++primaryKey,
       title,
