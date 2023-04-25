@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react"
-import data from "../../../data"
 import BlogCard from "../../components/BlogCard"
 import Empty from "../../components/Empty"
 import SearchBar from "../../components/SearchBar"
