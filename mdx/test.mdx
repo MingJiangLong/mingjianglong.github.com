@@ -1,27 +1,48 @@
 ---
-title: "test"
-description: "简单学习一下友宝的前端项目架构"
-date: "Nov 26, 2021"
-tags: ['image-processing', 'color-science', 'opencv']
-keywords: ['color-science', 'color-constancy', 'chromatic-adaptation', 'gray-world', 'opencv', 'python']
+title: 博客测试
+description: NextJS打包相关问题以及解决办法
+tags:
+  - NextJS
+keywords:
+  - NextJS
+id: test
+create: 1682416219030
+lastUpdate: 1682416974227
 ---
-# 友宝项目架构
-简单学习一下友宝的前端项目架构
+# NextJS打包相关问题
 
-友宝的前端项目的整体架构底层技术栈选用的是PHP+React，使用PHP做为外壳，内部重定向web静态资源。web资源请求首先经过的是PHP接口,经过一系列的中间件处理(比如鉴权之类...)，最后将页面展示需要的数据通过window对象注入静态页面，然后再将静态页面返回给浏览器渲染。
+NextJS打包相关问题以及解决办法，更多参见[Next文档](https://www.nextjs.cn/)
 
-感觉整体架构的思路有点类似于服务端渲染的思想，每次页面请求都是经过的服务端接口，服务端再去决定返回什么资源，实际返回的是一个已经有数据的静态页面，但是没有经过渲染，只是有页面数据，还是需要客户端渲染。
+>Eslint、Ts类型校验关闭
+```js:next.config.js
+  const nextConfig = {
+  
+    eslint:{
+      ignoreDuringBuilds:true
+    },
+      typescript: {
+      // !! WARN !!
+      // Dangerously allow production builds to successfully complete even if
+      // your project has type errors.
+      // !! WARN !!
+      ignoreBuildErrors: true,
+    }
+  }
+```
 
-优点
 
-  * 前端开发不需要网络服务模块
-  * 服务端感知度低
-  * 将静态数据注入的方式，减小的客户端的压力
-  * 方便页面重定向，定制化页面(可以通过外壳统一做特定活动之类的)
 
-缺点
+> Image Optimization using Next.js' default loader is not compatible with `next export`.
 
-  * 前端依赖的数据都是注入在window对象，如果window对象被后续修改将获取不到内容
-  * 应用场景少，只能应用于不经常变化的数据。
-  * 前端开发BUG定位调试变得困难，开发环境虽然可mock数据，但是如果需要针对特定bug，修复bug发布之后才能看到修复结果。
-  * 前后端耦合
+```JS
+module.exports = {
+  // https://github.com/vercel/next.js/issues/21079
+  // Remove this workaround whenever the issue is fixed
+  images: {
+    loader: 'imgix',
+    path: '',
+  },
+}
+```
+
+> 图片加载不出来

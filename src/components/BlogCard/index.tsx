@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import React from "react"
 import Tag from "../tag/Tag"
 import styles from "./index.module.css"
-import { MetaData } from "@/pages/utils"
+import { MetaData } from "../../../lib"
 /**
  * Blog 简介Card
  * @param props {BlogCardProps}

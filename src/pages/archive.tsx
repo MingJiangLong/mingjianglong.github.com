@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { getMdxTags } from "./utils"
+import { getMdxTags } from "../../lib"
 export default function (props: {
   tags: {
     typeName: string

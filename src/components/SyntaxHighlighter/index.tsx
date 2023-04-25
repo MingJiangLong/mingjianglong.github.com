@@ -67,9 +67,9 @@ export default function CodeSyntaxHighlighter(props: {
             style={code_highlighter_style}
             customStyle={{
               backgroundColor: background,
-              paddingBottom: "0px",
+              paddingBottom: "1em",
               margin: "0px",
-              marginBottom: "1vh",
+              marginBottom: "1em",
               borderBottomLeftRadius: "5px",
               borderBottomRightRadius: "5px",
               color: c4,

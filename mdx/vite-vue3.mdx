@@ -1,11 +1,18 @@
 ---
-title: "vite-vue"
-description: "vue3搭建一个小项目，项目用于公司零售柜价格设置。项目选型之所以选vue3，主要是用了我之前很久远的一个Vue2脚手架,写起来有点膈手，外加上vue3在国内火，想着是小项目就随便我折腾了。"
-date: "Nov 26, 2021"
-tags: ['image-processing', 'color-science', 'opencv']
-keywords: ['color-science', 'color-constancy', 'chromatic-adaptation', 'gray-world', 'opencv', 'python']
+title: vue3 学习
+description: >-
+  vue3搭建一个小项目，项目用于公司零售柜价格设置。项目选型之所以选vue3，主要是用了我之前很久远的一个Vue2脚手架,写起来有点膈手，外加上vue3在国内火，想着是小项目就随便我折腾了。
+tags:
+  - Vue3
+keywords:
+  - Vue3
+id: vite-vue3
+create: 1682416219032
+lastUpdate: 1682416974229
 ---
 # vue3 学习
+
+vue3搭建一个小项目，项目用于公司零售柜价格设置。项目选型之所以选vue3，主要是用了我之前很久远的一个Vue2脚手架,写起来有点膈手，外加上vue3在国内火，想着是小项目就随便我折腾了。
 
 ---
 首先去搜索引擎找了一个脚手架vite,一路enter就好了。对了vue3的全局状态管理推荐用**pinia**了，狗头保命...之前我都没听说这个玩意
@@ -16,7 +23,6 @@ keywords: ['color-science', 'color-constancy', 'chromatic-adaptation', 'gray-wor
 我这边是一个H5项目，需要做屏幕适配。所以 `postcss-pxtorem`+ `autoprefixer`+`amfe-flexible` install到项目里，然后按照demo配置一下。最主要的就是`rootValue`这个属性，设计稿除以10
 
 ```JS:.postcssrc.cjs
- //.postcssrc.cjs
  module.exports = {
   plugins: {
     autoprefixer: {
@@ -69,7 +75,7 @@ UI整的是`Vant`,为什么用这个，我也很纳闷，设计又不按照这�
 ```
 
 顺路又学了一下less定义全局变量
-```JS:vite.config.js
+```JS:VITE.CONFIG.JS
 // VITE.CONFIG.JS
 export default defineConfig(({ mode }) => {
   return {
@@ -106,7 +112,7 @@ export default defineConfig(({ mode }) => {
     如果任何报错都没有,建议检查router的模式是否用的是`history`
   * ts中引入Vue文件报错
 
-    ```ts
+    ```ts:sfc.d.ts
       //增加一个 sfc.d.ts
       declare module '*.vue' {
         import { ComponentOptions } from 'vue'
@@ -115,7 +121,7 @@ export default defineConfig(({ mode }) => {
       }
     ```
   * vconsole引入
-    ```JS
+    ```JS:main.ts
       if (import.meta.env.MODE !== 'prod') {
 
         // 网上的教程大多是下面这种引入，实际上会报错
@@ -128,6 +134,48 @@ export default defineConfig(({ mode }) => {
         app.use(()=>new Vconsole())
       }
     ```
+  * 部分浏览器黑屏兼容问题,版本较低的浏览器不支持ES6的语法和新API，而Babel默认只转换新的JavaScript句法，不转换新的API，比如Proxy、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法都不会转码。
+    > yarn add @vitejs/plugin-legacy terser
+    ```ts:vite.config.ts
+      import legacy from '@vitejs/plugin-legacy'
+      export default defineConfig(({ mode }) => {
+        return {
+          plugins: [
+            legacy({
+              targets: ['defaults', 'ie >= 11', 'chrome 52'],  //需要兼容的目标列表，可以设置多个
+              additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+              renderLegacyChunks: true,
+              polyfills: [
+                'es.symbol',
+                'es.array.filter',
+                'es.promise',
+                'es.promise.finally',
+                'es/map',
+                'es/set',
+                'es.array.for-each',
+                'es.object.define-properties',
+                'es.object.define-property',
+                'es.object.get-own-property-descriptor',
+                'es.object.get-own-property-descriptors',
+                'es.object.keys',
+                'es.object.to-string',
+                'web.dom-collections.for-each',
+                'esnext.global-this',
+                'esnext.string.match-all'
+              ]
+            })
+          ],
+          resolve: {
+            alias: {
+              '@': path.resolve(__dirname, 'src'),
+            },
+          },
+          server: { },
+          css: { }
+        }
+      })
+    ```
+  * xin
 
 
   

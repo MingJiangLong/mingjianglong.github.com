@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { getAllNextJSPath, getMdxFileContent } from "@/pages/utils"
+import { getAllNextJSPath, getMdxFileContent } from "../../../../lib"
 import { serialize } from "next-mdx-remote/serialize"
 import { MDXRemote } from "next-mdx-remote"
 import remarkMath from "remark-math"
@@ -27,22 +27,6 @@ const hr_color = c1 + "80",
   blockquote_background_color = c3 + "26",
   blockquote_border = c3 + "e6"
 
-function getHeadingAnchorProps(props: any) {
-  let id = ""
-  let modifiedProps: any = {}
-  if (typeof props.children === "string")
-    modifiedProps["children"] = [props.children]
-  else modifiedProps["children"] = props.children
-
-  let split_array =
-    modifiedProps.children[modifiedProps.children.length - 1].split(":=:")
-  if (split_array.length > 1) {
-    id = split_array[1]
-    modifiedProps.children[modifiedProps.children.length - 1] = split_array[0]
-  }
-
-  return [modifiedProps, id]
-}
 const components = {
   h1: (props: any) => {
     return (
@@ -51,7 +35,7 @@ const components = {
           fontFamily: "'Ubuntu', sans-serif",
           fontSize: "calc(1rem + 1.5vw)",
           color: h1_color,
-          margin: "1vh 0 1vh 0",
+          padding: "1em",
           overflowWrap: "break-word",
         }}
         {...props}
@@ -66,7 +50,7 @@ const components = {
           fontFamily: "'Maven Pro', sans-serif",
           fontSize: "calc(1rem + 1vw)",
           color: h2_color,
-          margin: "1vh 0 1vh 0",
+          padding: ".5em 0 1em",
           overflowWrap: "break-word",
         }}
         {...props}
@@ -81,7 +65,7 @@ const components = {
           fontFamily: "'Maven Pro', sans-serif",
           fontSize: "calc(1rem + 0.5vw)",
           color: h3_color,
-          margin: "1vh 0 1vh 0",
+          padding: "1em",
           overflowWrap: "break-word",
         }}
         {...props}
@@ -182,6 +166,10 @@ const components = {
       {...props}
     />
   ),
+  // img(props:any){
+  //   console.log(props);
+    
+  // }
 }
 /**
  *

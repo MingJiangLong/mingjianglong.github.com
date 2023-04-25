@@ -3,7 +3,7 @@ import data from "../../../data"
 import BlogCard from "../../components/BlogCard"
 import Empty from "../../components/Empty"
 import SearchBar from "../../components/SearchBar"
-import { MdxList, getAllMdxFileContent } from "../utils"
+import { MdxList, getAllMdxFileContent } from "../../../lib"
 /**
  *
  * @param props {BlogListProps}
