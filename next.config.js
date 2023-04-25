@@ -1,7 +1,20 @@
 
-const removeImports = require("next-remove-imports")();
 const path = require('path')
 const debug = process.env.NODE_ENV !== "production";
+
+
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    // If you use remark-gfm, you'll need to use next.config.mjs
+    // as the package is ESM only
+    // https://github.com/remarkjs/remark-gfm#install
+    // remarkPlugins: [],
+    // rehypePlugins: [],
+    // providerImportSource: '@mdx-js/react',
+  },
+})
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config, { defaultLoaders }) => {
@@ -9,8 +22,6 @@ const nextConfig = {
     return config
   },
   pageExtensions: ['mdx', 'jsx', 'js', 'ts', 'tsx'],
-  // basePath: !debug ? '/mingjianglong.github.io' : '',
-  // assetPrefix: !debug ? '/mingjianglong.github.io' : '',
 }
 
-module.exports = removeImports(nextConfig)
+module.exports = withMDX(nextConfig)

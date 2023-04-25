@@ -1,45 +1,20 @@
 import Link from "next/link"
-import { Fragment, useEffect, useState } from "react"
-import data from "../../data"
+import { getMdxTags } from "./utils"
+export default function (props: {
+  tags: {
+    typeName: string
+    children: {
+      title: string
+      id: string
+    }[]
+  }[]
+}) {
 
-export default function () {
-  /**
-   * 归档数据
-   */
-  function archiveData() {
-    let result: TreeData = []
-    data.forEach(item => {
-      const { tag } = item
-      tag.forEach(tagName => {
-        const find = result.find(k => k.typeName === tagName)
-        const tempt = {
-          id: item.id,
-          title: item.title,
-        }
-        if (find) {
-          find.children.push(tempt)
-        } else {
-          result.push({
-            typeName: tagName,
-            children: [tempt],
-          })
-        }
-      })
-    })
-    return result
-  }
-
-  const [treeData, setTreeData] = useState<TreeData>([])
-
-  useEffect(() => {
-    const tempt = archiveData()
-    setTreeData(tempt)
-  }, [])
   return (
-    <div style={{ margin: "5em",overflow:'hidden' }}>
-      {treeData.map((tree, index) => {
+    <div style={{ margin: "5em", overflow: "hidden" }}>
+      {props.tags.map((tree, index) => {
         return (
-          <div key={index} style={{ marginTop: "2em", }}>
+          <div key={index} style={{ marginTop: "2em" }}>
             <h3>{tree.typeName}</h3>
             <>
               {tree.children.map((blog, index) => (
@@ -65,6 +40,13 @@ export default function () {
   )
 }
 
+export function getStaticProps() {
+  const tags = getMdxTags()
+
+  return {
+    props: { tags },
+  }
+}
 type TreeData = {
   typeName: string
   children: {
