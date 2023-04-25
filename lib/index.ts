@@ -62,8 +62,7 @@ function syncMetaData(metaData: MetaData & {
 
     let newMd5Key = genMd5Key(content);
     if (mdx_store[fileName]) {
-        let oldMd5Key = genMd5Key(mdx_store[fileName])
-
+        let oldMd5Key = mdx_store[fileName]
         // 判断是否有更新
         if (newMd5Key == oldMd5Key) return {
             metaData,
