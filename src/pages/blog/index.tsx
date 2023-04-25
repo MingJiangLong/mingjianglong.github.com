@@ -14,6 +14,7 @@ export default function BlogList(props: { mdxList: MdxList }) {
   const [searchValue, setSearchValue] = useState("")
 
   const blogs = useMemo(() => {
+    
     return mdxList.filter(item => {
       const { metaData } = item
       const regexp = new RegExp(searchValue, "i")
@@ -23,7 +24,7 @@ export default function BlogList(props: { mdxList: MdxList }) {
         metaData.tags.some(item => regexp.test(item))
       )
     })
-  }, [props.mdxList])
+  }, [props.mdxList,searchValue])
 
   return (
     <>

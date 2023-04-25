@@ -35,7 +35,7 @@ const components = {
           fontFamily: "'Ubuntu', sans-serif",
           fontSize: "calc(1rem + 1.5vw)",
           color: h1_color,
-          padding: "1em",
+          padding: "1em 0",
           overflowWrap: "break-word",
         }}
         {...props}
@@ -50,7 +50,7 @@ const components = {
           fontFamily: "'Maven Pro', sans-serif",
           fontSize: "calc(1rem + 1vw)",
           color: h2_color,
-          padding: ".5em 0 1em",
+          padding: ".8em 0",
           overflowWrap: "break-word",
         }}
         {...props}
@@ -65,7 +65,7 @@ const components = {
           fontFamily: "'Maven Pro', sans-serif",
           fontSize: "calc(1rem + 0.5vw)",
           color: h3_color,
-          padding: "1em",
+          padding: ".6em 0",
           overflowWrap: "break-word",
         }}
         {...props}

@@ -1,4 +1,9 @@
 .key-words{
   font-weight: 500;
-  color: #d7ba7d;
+  padding: .2em .4em;
+  font-size: 85%;
+  white-space: break-spaces;
+  border-radius: 6px;
+  background-color: rgba(158,167,179,0.4);
+  /* color: #ffffff; */
 }
