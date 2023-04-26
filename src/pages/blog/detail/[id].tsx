@@ -150,7 +150,7 @@ const components = {
 
   hr: () => (
     <hr
-      style={{ margin: "3em 0", border: `1px solid ${hr_color}` }}
+      style={{ margin: "1em 0", border: `1px solid ${hr_color}` }}
     />
   ),
 
