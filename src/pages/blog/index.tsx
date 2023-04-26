@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useContext, useEffect, useMemo, useState } from "react"
 import BlogCard from "../../components/BlogCard"
 import Empty from "../../components/Empty"
 import SearchBar from "../../components/SearchBar"
 import { MdxList, getAllMdxFileContent } from "../../../lib"
+import { STORE } from "../_app"
 /**
  *
  * @param props {BlogListProps}
@@ -10,11 +11,10 @@ import { MdxList, getAllMdxFileContent } from "../../../lib"
 
 export default function BlogList(props: { mdxList: MdxList }) {
   const { mdxList } = props
-
+  const context = useContext(STORE)
   const [searchValue, setSearchValue] = useState("")
 
   const blogs = useMemo(() => {
-    
     return mdxList.filter(item => {
       const { metaData } = item
       const regexp = new RegExp(searchValue, "i")
@@ -24,15 +24,17 @@ export default function BlogList(props: { mdxList: MdxList }) {
         metaData.tags.some(item => regexp.test(item))
       )
     })
-  }, [props.mdxList,searchValue])
+  }, [props.mdxList, searchValue])
 
   return (
     <>
-      <SearchBar
-        onValueChange={e => {
-          setSearchValue(e)
-        }}
-      />
+      {!context.isMobile && (
+        <SearchBar
+          onValueChange={e => {
+            setSearchValue(e)
+          }}
+        />
+      )}
       <div
         style={{
           flex: 1,

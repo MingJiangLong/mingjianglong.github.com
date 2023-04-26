@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useContext, useMemo } from "react"
 import { getAllNextJSPath, getMdxFileContent } from "../../../../lib"
 import { serialize } from "next-mdx-remote/serialize"
 import { MDXRemote } from "next-mdx-remote"
@@ -6,6 +6,7 @@ import remarkMath from "remark-math"
 import rehypeKatex from "rehype-katex"
 import CodeSyntaxHighlighter from "@/components/SyntaxHighlighter"
 import HoverableLink from "@/components/HoverableLink"
+import { STORE } from "@/pages/_app"
 const c1 = "#071013",
   c2 = "#fffecb",
   c3 = "#20a4f3",
@@ -148,11 +149,7 @@ const components = {
     />
   ),
 
-  hr: () => (
-    <hr
-      style={{ margin: "1em 0", border: `1px solid ${hr_color}` }}
-    />
-  ),
+  hr: () => <hr style={{ margin: "1em 0", border: `1px solid ${hr_color}` }} />,
 
   blockquote: (props: any) => (
     <blockquote
@@ -168,7 +165,7 @@ const components = {
   ),
   // img(props:any){
   //   console.log(props);
-    
+
   // }
 }
 /**
@@ -176,11 +173,12 @@ const components = {
  * @param props {BlogDetailProps}
  */
 export default function (props: any) {
+  const context = useContext(STORE)
   return (
     <div
       style={{
         height: "100%",
-        padding: "7em",
+        padding: context.isMobile ? "1em" : "7em",
         overflow: "scroll",
       }}
     >
