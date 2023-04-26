@@ -9,6 +9,8 @@ import python from "react-syntax-highlighter/dist/cjs/languages/prism/python"
 import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx"
 import js from "react-syntax-highlighter/dist/cjs/languages/prism/javascript"
 import dart from "react-syntax-highlighter/dist/cjs/languages/prism/dart"
+import tsx from "react-syntax-highlighter/dist/cjs/languages/prism/tsx";
+import ts from "react-syntax-highlighter/dist/cjs/languages/prism/typescript";
 import vsc_dark_plus from "react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus"
 import code_highlighter_style from "./code_highlighter_style"
 
@@ -19,6 +21,9 @@ SyntaxHighlighter.registerLanguage("markdown", markdown)
 SyntaxHighlighter.registerLanguage("python", python)
 SyntaxHighlighter.registerLanguage("jsx", jsx)
 SyntaxHighlighter.registerLanguage("js", js)
+SyntaxHighlighter.registerLanguage("tsx", tsx)
+SyntaxHighlighter.registerLanguage("ts", ts)
+SyntaxHighlighter.registerLanguage("typescript", ts)
 SyntaxHighlighter.registerLanguage("dart", dart)
 
 const c1 = "#071013",
