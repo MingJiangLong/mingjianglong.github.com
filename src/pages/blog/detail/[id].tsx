@@ -163,10 +163,18 @@ const components = {
       {...props}
     />
   ),
-  // img(props:any){
-  //   console.log(props);
-
-  // }
+  img(props: any) {
+    return (
+      <img
+        alt={props?.alt ?? ""}
+        src={props?.src}
+        style={{
+          width: "100%",
+          height: "auto",
+        }}
+      />
+    )
+  },
 }
 /**
  *
