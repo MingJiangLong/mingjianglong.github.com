@@ -1,0 +1,53 @@
+---
+title: ts定义全局变量
+description: ts定义全局变量，以及可以能碰到的问题
+tags:
+  - ts
+keywords:
+  - ts
+---
+# ts定义全局变量
+
+日常开发中如果一些包是手动通过script标签引入，并且`@types`也没有包可以，就需要我们手动定义，如下:
+
+```ts:**.d.ts
+/**
+ * 支付宝jssdk部分模块描述
+ */
+declare namespace ap {
+  function alert(options: { content: string; buttonText?: string; title?: string }): void;
+}
+```
+
+### 可能会碰到的问题
+如果正常定义之后,编辑器仍然没有智能提示,排除编辑器自身的问题，最好检查`tsconfig.json`文件`include`配置,
+你自定义的`*.d.ts`文件是否在include规则下面。。。
+```ts:tsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "paths": {"@/*":["src/*"]},
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+```
