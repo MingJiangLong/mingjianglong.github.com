@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import Block from "@/utils/block"
+import Block from "@/utils/Block"
 /**
  *
  * @param props {HomeProps}
