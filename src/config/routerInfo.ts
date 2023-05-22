@@ -3,6 +3,11 @@
  */
   export default [
   {
+    path: "/",
+    title: "开心☺",
+    isMain: true
+  },
+  {
     path: "/blog",
     title: "Blog",
     isMain: true

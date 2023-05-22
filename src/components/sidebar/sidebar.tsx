@@ -9,7 +9,7 @@ export default function Sidebar() {
 
   function dynamicColor(path: string) {
     const { pathname } = router
-    if (pathname.startsWith(path)) return { color: "red" }
+    if (pathname == path) return { color: "red" }
     return { color: "black" }
   }
 

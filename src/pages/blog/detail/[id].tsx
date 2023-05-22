@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react"
+import React, { useContext, useEffect, useMemo, useState } from "react"
 import { getAllNextJSPath, getMdxFileContent } from "../../../../lib"
 import { serialize } from "next-mdx-remote/serialize"
 import { MDXRemote } from "next-mdx-remote"
@@ -7,6 +7,8 @@ import rehypeKatex from "rehype-katex"
 import CodeSyntaxHighlighter from "@/components/SyntaxHighlighter"
 import HoverableLink from "@/components/HoverableLink"
 import { STORE } from "@/pages/_app"
+import Lock from "@/components/Lock"
+import MD5 from "crypto-js/md5"
 const c1 = "#071013",
   c2 = "#fffecb",
   c3 = "#20a4f3",
@@ -182,6 +184,10 @@ const components = {
  */
 export default function (props: any) {
   const context = useContext(STORE)
+  const [haveAccess, setHaveAccess] = useState(true)
+  useEffect(() => {
+    setHaveAccess(!(props.metaData?.isPrivate ?? false))
+  }, [])
   return (
     <div
       style={{
@@ -190,7 +196,17 @@ export default function (props: any) {
         overflow: "scroll",
       }}
     >
-      <MDXRemote {...props.content} components={components} />
+      {!haveAccess && (
+        <Lock
+          onPasswordConfirm={password => {
+            // 可以存一个本地密码并设置一个失效
+            if (password == "longjiang") {
+              setHaveAccess(true)
+            }
+          }}
+        />
+      )}
+      {haveAccess && <MDXRemote {...props.content} components={components} />}
     </div>
   )
 }

@@ -20,7 +20,7 @@ export default function Layout({ children }: LayoutProps) {
   const title = useMemo(
     () =>
       routerInfo.find(item => item.path === router.pathname)?.title ??
-      "文章详情",
+      "(*^▽^*)",
     [router]
   )
 
@@ -30,7 +30,7 @@ export default function Layout({ children }: LayoutProps) {
         <title>{title}</title>
       </Head>
       <div className={styles["main-container"]}>
-        {!!context.isMobile && <TopNav title={title}/>}
+        {!!context.isMobile && <TopNav title={title} />}
         <main className={styles.main}>
           {!!!context.isMobile && (
             <div style={{ width: "15em" }}>
