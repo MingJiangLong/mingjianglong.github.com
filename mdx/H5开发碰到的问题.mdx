@@ -1,0 +1,22 @@
+---
+title: H5开发问题汇总
+description: H5开发问题汇总
+tags:
+  - H5
+keywords:
+  - H5
+---
+
+# H5开发问题汇总
+
+- 使用px2rem类似转换包之后,圆点变形
+
+  结合transform和scale使用
+
+```css
+  .test{
+    width:1px;
+    height:1px;
+    transform:scale(10)
+  }
+```

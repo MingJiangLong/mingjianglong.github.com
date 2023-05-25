@@ -201,8 +201,9 @@ export default function (props: any) {
           onPasswordConfirm={password => {
             // 可以存一个本地密码并设置一个失效
             if (password == "longjiang") {
-              setHaveAccess(true)
+              return setHaveAccess(true)
             }
+            prompt("密码错误")
           }}
         />
       )}
