@@ -98,23 +98,39 @@ export default class Block {
     this.content.restore()
   }
 
+  drawNum(h: string, m: string, s: string) {
+    if (!this.content) return;
+    this.content.save()
+    this.content.font = "40px 微软雅黑"
+    this.content.fillStyle = "coral"
+    this.content.textBaseline = "top"
+    this.content.fillText(`${h}:${m}:${s}`, 220, 400)
+    this.content.restore()
+  }
   getCurrentTime() {
     const now = new Date();
     const hours = now.getHours()
+    const m = now.getMinutes()
+    const s = now.getSeconds()
     return {
       hours: hours > 12 ? hours - 12 : hours,
-      minutes: now.getMinutes(),
-      seconds: now.getSeconds()
+      minutes: m,
+      seconds: s,
+      fullHours: `${hours >= 10 ? '' : '0'}${hours}`,
+      fullMins: `${m >= 10 ? '' : '0'}${m}`,
+      fullSeconds: `${s >= 10 ? '' : '0'}${s}`,
     }
   }
 
   draw() {
     this.drawShell()
-    const { hours, minutes, seconds } = this.getCurrentTime()
+    const { hours, minutes, seconds, fullHours, fullMins, fullSeconds } = this.getCurrentTime()
     this.drawSecondsTag(seconds)
     this.drawMinutesTag(minutes)
     this.drawHoursTag(hours)
+    this.drawNum(fullHours, fullMins, fullSeconds)
   }
+
   start() {
     this.timer = setInterval(() => {
       this.draw()
