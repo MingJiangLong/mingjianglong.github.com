@@ -1,0 +1,63 @@
+---
+title: vite打包白屏
+description: vue项目使用vite白屏问题
+tags:
+  - Vue3
+  - vite
+keywords:
+  - Vue3
+  - vite
+id: vite白屏
+create: 1686118659933
+lastUpdate: 1686119224086
+---
+
+# vite打包白屏
+
+    白屏黑不黑人   囧
+
+## 可能造成的原因
+
+- 浏览器兼容
+
+    增加垫片
+```ts:vite.config.ts
+
+import legacy from '@vitejs/plugin-legacy'
+export default defineConfig(({ mode }) => {
+  return {
+    plugins: [
+    legacy({
+      targets: ['defaults', 'ie >= 11', 'chrome 52'],  //需要兼容的目标列表，可以设置多个
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+      renderLegacyChunks: true,
+      polyfills: [
+        'es.symbol',
+        'es.array.filter',
+        'es.promise',
+        'es.promise.finally',
+        'es/map',
+        'es/set',
+        'es.array.for-each',
+        'es.object.define-properties',
+        'es.object.define-property',
+        'es.object.get-own-property-descriptor',
+        'es.object.get-own-property-descriptors',
+        'es.object.keys',
+        'es.object.to-string',
+        'web.dom-collections.for-each',
+        'esnext.global-this',
+        'esnext.string.match-all'
+      ]
+    })
+    ]
+  }
+})
+
+```
+
+- 打包script标签设置defer
+  
+  项目`base`设置的是一个地址。然后每次进入页面都需要刷新一次才能加载资源,也就是资源没有正常加载。查看发现vite打包之后的文件
+  资源加载标签`<script type="module" crossorigin src="**.js"></script>`,标签没有defer,导致页面加载完了，我们的js还没下载完,页面白屏。
+  
