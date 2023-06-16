@@ -1,0 +1,27 @@
+---
+title: Axios response status 0
+description: '在IOS12.*版本,Axios发起的请求status为0'
+tags:
+  - H5
+  - IOS
+  - Axios
+  - Cros
+keywords:
+  - H5
+  - IOS
+  - Axios
+  - Cros
+id: InIOS12AxiosStatus0
+create: 1686901605093
+lastUpdate: 1686902389838
+---
+
+# 在IOS12.*版本,Axios发起的请求status为0
+
+  在公司H5项目测试，接口请求只有在IOS12.*版本无法正常请求，返回status 0。
+  问题原因:浏览器内核触发了cors拦截，拦截了[非简单请求](https://developer.mozilla.org/zh-CN/docs/Glossary/Simple_response_header)
+
+> 解决方式：服务端把需要跨域的请求头设置给Access-Control-Allow-Headers，不用通配符*； 
+
+
+[更多解决办法](https://github.com/axios/axios/issues/1598)

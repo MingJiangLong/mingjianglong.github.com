@@ -1,0 +1,46 @@
+---
+title: Axios重试
+description: 基于Axios封装接口重试
+tags:
+  - Axios
+keywords:
+  - H5
+  - Vue
+  - Android
+id: axios_retry
+create: 1686903407603
+lastUpdate: 1686903407603
+---
+
+# Axios重试封装
+
+```typescript
+import Axios from 'axios'
+import { getToken } from '@/util/token'
+
+const http = Axios.create({
+  timeout: 1000 * 15,
+  timeoutErrorMessage: '服务器繁忙,稍候重试',
+})
+
+http.interceptors.response.use(async (data) => {
+  if (data?.data?.code != 200) throw new Error(data?.data?.message ?? '服务器异常')
+  return data.data
+}, async (error) => {
+  let config = error?.config;
+  // 防止retry被intercept.request中配置覆盖，造成死循环
+  let retry = error?.config?.headers?.retry;
+  let __retry__ = error?.config?.headers?.__retry__;
+
+  if(!!retry && __retry__ == undefined){
+    error?.config?.headers?.__retry__ = --retry
+    return http(error.config)
+  }
+
+  if(__retry__){
+    error?.config?.headers?.__retry__ = --__retry__
+    return http(error.config)
+  }
+  return Promise.reject(error)
+})
+```
