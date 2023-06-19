@@ -7,7 +7,7 @@ keywords:
   - ts
 id: ts-定义全局变量
 create: 1682676637588
-lastUpdate: 1682676638939
+lastUpdate: 1687144350863
 ---
 # ts定义全局变量
 
@@ -19,6 +19,12 @@ lastUpdate: 1682676638939
  */
 declare namespace ap {
   function alert(options: { content: string; buttonText?: string; title?: string }): void;
+}
+interface Window {
+  uboxClient: {
+    getToken: (callback: (token: string) => void) => void
+  },
+  UBOX_TOKEN?: string
 }
 ```
 

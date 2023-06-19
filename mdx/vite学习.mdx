@@ -1,0 +1,197 @@
+---
+title: vite学习
+description: vite学习
+tags:
+  - vite
+keywords:
+  - vite
+id: vite学习
+create: 1687144350874
+lastUpdate: 1687162752459
+---
+
+# vite学习
+
+    Vite（法语意为 "快速的"，发音 /vit/，发音同 "veet"）是一种新型前端构建工具，能够显著提升前端开发体验。它主要由两部分组成：
+    - 一个开发服务器，它基于 原生 ES 模块 提供了 丰富的内建功能，如速度快到惊人的 模块热更新（HMR）。
+    - 一套构建指令，它使用 Rollup 打包你的代码，并且它是预配置的，可输出用于生产环境的高度优化过的静态资源。
+
+[vite官网](https://cn.vitejs.dev/)
+
+### 社区模板初始化
+> npm create vite@latest
+
+### vite.config.ts配置
+```typescript:vite.config.ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+})
+```
+### 路径别名
+```typescript:vite.config.ts
+import { defineConfig } from 'vite'
+import path from 'path'
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+    extensions: ['.js', '.vue', '.json'], // vue项目配置
+  },
+})
+```
+
+配合typescript需要在tsconfig同步配置
+```json:tsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {"@/*":["src/*"]},
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","@types/*.d.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+```
+### 代码压缩
+```typescript:vite.config.ts
+import { defineConfig } from 'vite'
+import path from 'path'
+import viteCompression from 'vite-plugin-compression'
+export default defineConfig({
+  plugins: [viteCompression()],
+})
+```
+需要nginx配合
+```yaml
+# 开启gzip
+gzip on;
+
+# 启用gzip压缩的最小文件，小于设置值的文件将不会压缩
+gzip_min_length 1k;
+
+# gzip 压缩级别，1-9，数字越大压缩的越好，也越占用CPU时间，后面会有详细说明
+gzip_comp_level 1;
+
+# 进行压缩的文件类型。javascript有多种形式。其中的值可以在 mime.types 文件中找到。
+gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png application/vnd.ms-fontobject font/ttf font/opentype font/x-woff image/svg+xml;
+
+# 是否在http header中添加Vary: Accept-Encoding，建议开启
+gzip_vary on;
+
+# 禁用IE 6 gzip
+gzip_disable "MSIE [1-6]\.";
+
+# 设置压缩所需要的缓冲区大小
+gzip_buffers 32 4k;
+```
+
+### 公共依赖打包成一个文件
+```typescript:vite.config.ts
+  import { defineConfig } from 'vite'
+  export default defineConfig({
+    build: {
+      outDir: "../q/src/main/resources/static",
+      manifest: true,
+      emptyOutDir: true,
+      minify:"terser",
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          entryFileNames: 'assets/entry/[name][hash].js',
+          chunkFileNames: 'assets/chunk/[name][hash].js',
+          assetFileNames: 'assets/file/[name][hash].[ext]',
+          manualChunks(id) {
+            const NODE_MODULES = 'node_modules'
+            if (id.includes(NODE_MODULES)) return 'vendor'
+          },
+        },
+      }
+    },
+  })
+```
+### server配置
+
+```typescript:vite.config.ts
+  import { defineConfig } from 'vite'
+  export default defineConfig({
+    server: {
+      host: "0.0.0.0",
+      port:"3000",// 默认5173
+      proxy: {
+        // 字符串简写写法：http://localhost:5173/foo -> http://localhost:4567/foo
+        '/foo': 'http://localhost:4567',
+        // 带选项写法：http://localhost:5173/api/bar -> http://jsonplaceholder.typicode.com/bar
+        '/api': {
+          target: 'http://jsonplaceholder.typicode.com',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+        // 正则表达式写法：http://localhost:5173/fallback/ -> http://jsonplaceholder.typicode.com/
+        '^/fallback/.*': {
+          target: 'http://jsonplaceholder.typicode.com',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/fallback/, ''),
+        },
+        // 使用 proxy 实例
+        '/api': {
+          target: 'http://jsonplaceholder.typicode.com',
+          changeOrigin: true,
+          configure: (proxy, options) => {
+            // proxy 是 'http-proxy' 的实例
+          }
+        },
+        // 代理 websockets 或 socket.io 写法：ws://localhost:5173/socket.io -> ws://localhost:5174/socket.io
+        '/socket.io': {
+          target: 'ws://localhost:5174',
+          ws: true,
+        },
+      },
+    }
+  })
+```
+
+### 浏览器兼容
+```typescript:vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import legacy from '@vitejs/plugin-legacy'
+export default defineConfig({
+  plugins: [
+    vue(),
+    legacy({
+      targets: ['defaults', 'ie >= 11', 'chrome 52'],  //需要兼容的目标列表，可以设置多个
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+      renderLegacyChunks: true,
+      polyfills: [
+        'es.symbol',
+        'es.array.filter',
+        'es.promise',
+        'es.promise.finally',
+        'es/map',
+        'es/set',
+        'es.array.for-each',
+        'es.object.define-properties',
+        'es.object.define-property',
+        'es.object.get-own-property-descriptor',
+        'es.object.get-own-property-descriptors',
+        'es.object.keys',
+        'es.object.to-string',
+        'web.dom-collections.for-each',
+        'esnext.global-this',
+        'esnext.string.match-all'
+      ]
+    })
+  ],
+})
+
+```
