@@ -1,0 +1,29 @@
+---
+title: 不能用作 JSX 组件
+description: 使用tsx时vscode提示"**不能用作 JSX 组件"
+tags:
+  - tsx
+  - React
+keywords:
+  - tsx
+  - React
+id: 不能用作JSX组件
+create: 1687688994186
+lastUpdate: 1687688994186
+---
+
+# 不能用作 JSX 组件
+
+### 原因
+在代码没有问题的前提下多半原因是`@types/react`和本地`ts`版本冲突原因
+
+### 解决办法
+
+查询本地ts版本
+> tsc --version
+
+npm社区找到`@types/react`, 根据`ts`版本找到对应`@types/react`版本下载
+![不能用作JSX组件](/md-images/notUsedAsJsx.jpg)
+
+
+

@@ -12,7 +12,10 @@ import dart from "react-syntax-highlighter/dist/cjs/languages/prism/dart"
 import tsx from "react-syntax-highlighter/dist/cjs/languages/prism/tsx";
 import ts from "react-syntax-highlighter/dist/cjs/languages/prism/typescript";
 import vsc_dark_plus from "react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus"
+import css from "react-syntax-highlighter/dist/cjs/languages/prism/css"
+
 import code_highlighter_style from "./code_highlighter_style"
+// import mermaid from 'react-mermaid';
 
 SyntaxHighlighter.registerLanguage("bash", bash)
 SyntaxHighlighter.registerLanguage("json", json)
@@ -25,7 +28,19 @@ SyntaxHighlighter.registerLanguage("tsx", tsx)
 SyntaxHighlighter.registerLanguage("ts", ts)
 SyntaxHighlighter.registerLanguage("typescript", ts)
 SyntaxHighlighter.registerLanguage("dart", dart)
-
+SyntaxHighlighter.registerLanguage("css", css)
+// SyntaxHighlighter.registerLanguage('mermaid', () => ({
+//   contains: [
+//     {
+//       className: 'mermaid',
+//       begin: /```mermaid(\s+\w+)?/,
+//       end: '```',
+//       subLanguage: 'mermaid',
+//       excludeBegin: true,
+//       excludeEnd: true,
+//     },
+//   ],
+// }));
 const c1 = "#071013",
   c2 = "#fffecb",
   c3 = "#20a4f3",
