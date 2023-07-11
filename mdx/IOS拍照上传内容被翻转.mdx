@@ -1,0 +1,94 @@
+---
+title: ios拍照上传，照片被旋转
+description: 'ios,h5使用input拍照上传，上传之后的照片被旋转'
+tags:
+  - ios
+  - h5
+  - exif
+keywords:
+  - ios
+  - h5
+  - exif
+id: IOS拍照上传内容被翻转
+create: 1689056521119
+lastUpdate: 1689057583687
+---
+
+# ios拍照,本地预览正常，上传之后被旋转
+
+
+### 背景
+H5使用input文件上传,本地预览正常，但是ios上传到后端之后，图片被旋转。搜索引擎一搜索，才知道这个涉及到到一个叫`exif`(可交换图像文件格式)的东西
+
+
+### 什么是exif
+Exif（Exchangeable image file format）也就是可交换图像文件格式。是专门用来`记录数码照片属性信息和拍摄数据`。Exif信息包含了非常多的元数据，比如：
+- 图像相关的有：图像ID、分辨率、分辨率单位、图像方向、图像宽高等
+- 相机相关的有：相机制造商、相机型号、光圈值、焦距、物距、光圈值等
+- 其他一些： 饱和度、亮度、清晰度、EXIF版本等
+
+### 可能的问题
+- 本地预览正常，上传被旋转
+- 本地预览已经被旋转
+
+### 解决方案
+- 本地预览正常，上传被旋转
+使用canvas重画照片(pass:本质就是去掉exif信息)
+```typescript
+async function redrawImage(
+  image: HTMLImageElement,
+  fileName: string,
+  fileType: string
+): Promise<File> {
+  const canvasDom = document.createElement("canvas")
+  canvasDom.width = image.width
+  canvasDom.height = image.height
+  const context = canvasDom.getContext("2d")
+  if (!context) throw new Error("canvas is null")
+  context.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight)
+  const canvasDataURL = canvasDom.toDataURL(fileType, 0.7)
+  return url2File(canvasDataURL, `${new Date().getTime()}${fileName}`)
+}
+```
+
+- 本地预览图片已经被旋转
+修改exif中图像方向信息
+```typescript
+import piexif from "piexifjs"
+/**
+ * 文件转dataUrl
+ */
+function file2DataUrl(file: File) {
+  return new Promise<string>(s => {
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = function (_e) {
+      s(reader.result as string)
+    }
+  })
+}
+
+async function url2File(url: string, fileName: string):Promise<File> {
+  const blob = await (await fetch(url)).blob()
+  return new File([blob], fileName, { type: blob.type })
+}
+
+async function updateOrient(file: File) {
+  const dataUrl = await file2DataUrl(file)
+  let originExif = piexif.load(dataUrl) // 获取exif信息
+  const orientation = originExif["0th"][piexif.ImageIFD.Orientation] // orientation
+  if (orientation && orientation != 1) {
+    let exif = {}
+    exif[piexif.ImageIFD.Orientation] = 3 // 设置orientation 这里需要根据实际情况将图片调整至你预期方向
+    let exifObj = { "0th": exif }
+    let exifbytes = piexif.dump(exifObj)
+    let inserted = piexif.insert(exifbytes, dataUrl) // 写入新的exif
+    return await url2File(inserted, `${new Date().getTime()}_${file.name}`)
+  } else {
+    return file
+  }
+}
+
+```
+### 小结
+
