@@ -9,9 +9,10 @@ export default function (props: {
     }[]
   }[]
 }) {
-
+  console.log(props.tags);
+  
   return (
-    <div style={{ margin: "5em", overflow: "hidden" }}>
+    <div style={{ margin: "5em", overflowY: "scroll" }}>
       {props.tags.map((tree, index) => {
         return (
           <div key={index} style={{ marginTop: "2em" }}>
