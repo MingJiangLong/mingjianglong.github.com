@@ -4,7 +4,6 @@ import { useContext, useEffect, useMemo } from "react"
 import routerInfo from "../../config/routerInfo"
 import Sidebar from "../sidebar/sidebar"
 import styles from "./layout.module.css"
-import { STORE } from "@/pages/_app"
 import TopNav from "../TopNav"
 
 type LayoutProps = {
@@ -16,7 +15,6 @@ type LayoutProps = {
  */
 export default function Layout({ children }: LayoutProps) {
   const router = useRouter()
-  const context = useContext(STORE)
   const title = useMemo(
     () =>
       routerInfo.find(item => item.path === router.pathname)?.title ??
@@ -30,13 +28,11 @@ export default function Layout({ children }: LayoutProps) {
         <title>{title}</title>
       </Head>
       <div className={styles["main-container"]}>
-        {!!context.isMobile && <TopNav title={title} />}
+        {/* <TopNav title={title} /> */}
         <main className={styles.main}>
-          {!!!context.isMobile && (
-            <div style={{ width: "15em" }}>
-              <Sidebar />
-            </div>
-          )}
+          <div style={{ width: "15em" }}>
+            <Sidebar />
+          </div>
           <div
             style={{
               flex: 1,

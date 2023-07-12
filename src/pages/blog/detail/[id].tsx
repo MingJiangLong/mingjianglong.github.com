@@ -6,9 +6,7 @@ import remarkMath from "remark-math"
 import rehypeKatex from "rehype-katex"
 import CodeSyntaxHighlighter from "@/components/SyntaxHighlighter"
 import HoverableLink from "@/components/HoverableLink"
-import { STORE } from "@/pages/_app"
 import Lock from "@/components/Lock"
-import MD5 from "crypto-js/md5"
 const c1 = "#071013",
   c2 = "#fffecb",
   c3 = "#20a4f3",
@@ -183,7 +181,6 @@ const components = {
  * @param props {BlogDetailProps}
  */
 export default function (props: any) {
-  const context = useContext(STORE)
   const [haveAccess, setHaveAccess] = useState(true)
   useEffect(() => {
     setHaveAccess(!(props.metaData?.isPrivate ?? false))
@@ -192,7 +189,7 @@ export default function (props: any) {
     <div
       style={{
         height: "100%",
-        padding: context.isMobile ? "1em" : "7em",
+        padding: "7em",
         overflow: "scroll",
       }}
     >

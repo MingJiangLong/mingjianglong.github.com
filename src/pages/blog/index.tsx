@@ -3,7 +3,6 @@ import BlogCard from "../../components/BlogCard"
 import Empty from "../../components/Empty"
 import SearchBar from "../../components/SearchBar"
 import { MdxList, getAllMdxFileContent } from "../../../lib"
-import { STORE } from "../_app"
 /**
  *
  * @param props {BlogListProps}
@@ -11,7 +10,6 @@ import { STORE } from "../_app"
 
 export default function BlogList(props: { mdxList: MdxList }) {
   const { mdxList } = props
-  const context = useContext(STORE)
   const [searchValue, setSearchValue] = useState("")
 
   const blogs = useMemo(() => {
@@ -28,13 +26,11 @@ export default function BlogList(props: { mdxList: MdxList }) {
 
   return (
     <>
-      {!context.isMobile && (
-        <SearchBar
-          onValueChange={e => {
-            setSearchValue(e)
-          }}
-        />
-      )}
+      <SearchBar
+        onValueChange={e => {
+          setSearchValue(e)
+        }}
+      />
       <div
         style={{
           flex: 1,
