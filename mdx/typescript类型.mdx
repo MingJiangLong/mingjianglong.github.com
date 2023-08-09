@@ -1,0 +1,21 @@
+---
+title: Typescript类型学习
+description: Typescript类型定义
+tags:
+  - typescript
+keywords:
+  - typescript
+id: typescript类型
+create: 1689302190716
+lastUpdate: 1689302191588
+---
+# Typescript类型学习
+
+### 枚举类型提取
+```ts
+enum NAME {
+  'xiaoming'='xiaoming',
+  'xiaozhang'='xiaozhang',
+}
+type Name = keyof typeof Name// 'xiaoming'|'xiaozhang'
+```
