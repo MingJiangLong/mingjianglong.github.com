@@ -7,7 +7,7 @@ keywords:
   - grid
 id: grid布局学习
 create: 1691563501797
-lastUpdate: 1691563507373
+lastUpdate: 1691743637433
 ---
 
 # Gird布局
@@ -16,10 +16,88 @@ lastUpdate: 1691563507373
 [MDN Grid](https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid)
 
 ### api
+  - grid-template-column
 
+    grid-template-columns 该属性是基于网格列的维度，去定义网格线的名称和网格轨道的尺寸大小。
+    ```css:CSS
+      /* Keyword value */
+      grid-template-columns: none;
+
+      /* <track-list> values */
+      grid-template-columns: 100px 1fr;
+      grid-template-columns: [linename] 100px;
+      grid-template-columns: [linename1] 100px [linename2 linename3];
+      grid-template-columns: minmax(100px, 1fr);
+      grid-template-columns: fit-content(40%);
+      grid-template-columns: repeat(3, 200px);
+      grid-template-columns: subgrid;
+      grid-template-columns: masonry;
+
+      /* <auto-track-list> values */
+      grid-template-columns: 200px repeat(auto-fill, 100px) 300px;
+      grid-template-columns:
+        minmax(100px, max-content)
+        repeat(auto-fill, 200px) 20%;
+      grid-template-columns:
+        [linename1] 100px [linename2]
+        repeat(auto-fit, [linename3 linename4] 300px)
+        100px;
+      grid-template-columns:
+        [linename1 linename2] 100px
+        repeat(auto-fit, [linename1] 300px) [linename3];
+
+      /* Global values */
+      grid-template-columns: inherit;
+      grid-template-columns: initial;
+      grid-template-columns: revert;
+      grid-template-columns: revert-layer;
+      grid-template-columns: unset;
+    ```
+  - grid-template-rows
+    ```css:CSS
+      /* Keyword value */
+      grid-template-rows: none;
+
+      /* <track-list> values */
+      grid-template-rows: 100px 1fr;
+      grid-template-rows: [linename] 100px;
+      grid-template-rows: [linename1] 100px [linename2 linename3];
+      grid-template-rows: minmax(100px, 1fr);
+      grid-template-rows: fit-content(40%);
+      grid-template-rows: repeat(3, 200px);
+      grid-template-rows: subgrid;
+      grid-template-rows: masonry;
+
+      /* <auto-track-list> values */
+      grid-template-rows: 200px repeat(auto-fill, 100px) 300px;
+      grid-template-rows:
+        minmax(100px, max-content)
+        repeat(auto-fill, 200px) 20%;
+      grid-template-rows:
+        [linename1] 100px [linename2]
+        repeat(auto-fit, [linename3 linename4] 300px)
+        100px;
+      grid-template-rows:
+        [linename1 linename2] 100px
+        repeat(auto-fit, [linename1] 300px) [linename3];
+
+      /* Global values */
+      grid-template-rows: inherit;
+      grid-template-rows: initial;
+      grid-template-rows: revert;
+      grid-template-rows: revert-layer;
+      grid-template-rows: unset;
+    ```
   - grid
 
-    grid 是一个 CSS 简写属性，可以用来设置以下属性： 显式网格属性 grid-template-rows、grid-template-columns 和 grid-template-areas， 隐式网格属性 grid-auto-rows、grid-auto-columns 和 grid-auto-flow， 间距属性 grid-column-gap (en-US) 和 grid-row-gap (en-US)。
+    grid 是一个 CSS 简写属性，可以用来设置以下属性： 显式网格属性 grid-template-rows、grid-template-columns 和 grid-template-areas， 隐式网格属性 grid-auto-rows、grid-auto-columns 和 grid-auto-flow， 间距属性 grid-column-gap和 grid-row-gap。
+   
+    ```text:基本语法
+      grid = 
+          <'grid-template'>                                   |
+          <'grid-template-rows'> / [ auto-flow && dense? ] <'grid-auto-columns'>?  |
+          [ auto-flow && dense? ] <'grid-auto-rows'>? / <'grid-template-columns'>  
+    ```
 
     ```css:CSS
       /* <'grid-template'> values */
@@ -76,6 +154,7 @@ lastUpdate: 1691563507373
       grid-area: initial;
       grid-area: unset;
     ```
+
   - grid-auto-columns
     ```css:CSS
       /* 以下是不同类型的属性值示例 */
@@ -348,73 +427,4 @@ lastUpdate: 1691563507373
       grid-template-areas: revert-layer;
       grid-template-areas: unset;
     ```
-  - grid-template-column
-    ```css:CSS
-      /* Keyword value */
-      grid-template-columns: none;
 
-      /* <track-list> values */
-      grid-template-columns: 100px 1fr;
-      grid-template-columns: [linename] 100px;
-      grid-template-columns: [linename1] 100px [linename2 linename3];
-      grid-template-columns: minmax(100px, 1fr);
-      grid-template-columns: fit-content(40%);
-      grid-template-columns: repeat(3, 200px);
-      grid-template-columns: subgrid;
-      grid-template-columns: masonry;
-
-      /* <auto-track-list> values */
-      grid-template-columns: 200px repeat(auto-fill, 100px) 300px;
-      grid-template-columns:
-        minmax(100px, max-content)
-        repeat(auto-fill, 200px) 20%;
-      grid-template-columns:
-        [linename1] 100px [linename2]
-        repeat(auto-fit, [linename3 linename4] 300px)
-        100px;
-      grid-template-columns:
-        [linename1 linename2] 100px
-        repeat(auto-fit, [linename1] 300px) [linename3];
-
-      /* Global values */
-      grid-template-columns: inherit;
-      grid-template-columns: initial;
-      grid-template-columns: revert;
-      grid-template-columns: revert-layer;
-      grid-template-columns: unset;
-    ```
-  - grid-template-rows
-    ```css:CSS
-      /* Keyword value */
-      grid-template-rows: none;
-
-      /* <track-list> values */
-      grid-template-rows: 100px 1fr;
-      grid-template-rows: [linename] 100px;
-      grid-template-rows: [linename1] 100px [linename2 linename3];
-      grid-template-rows: minmax(100px, 1fr);
-      grid-template-rows: fit-content(40%);
-      grid-template-rows: repeat(3, 200px);
-      grid-template-rows: subgrid;
-      grid-template-rows: masonry;
-
-      /* <auto-track-list> values */
-      grid-template-rows: 200px repeat(auto-fill, 100px) 300px;
-      grid-template-rows:
-        minmax(100px, max-content)
-        repeat(auto-fill, 200px) 20%;
-      grid-template-rows:
-        [linename1] 100px [linename2]
-        repeat(auto-fit, [linename3 linename4] 300px)
-        100px;
-      grid-template-rows:
-        [linename1 linename2] 100px
-        repeat(auto-fit, [linename1] 300px) [linename3];
-
-      /* Global values */
-      grid-template-rows: inherit;
-      grid-template-rows: initial;
-      grid-template-rows: revert;
-      grid-template-rows: revert-layer;
-      grid-template-rows: unset;
-    ```
