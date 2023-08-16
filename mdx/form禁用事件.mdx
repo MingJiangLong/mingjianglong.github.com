@@ -1,0 +1,25 @@
+---
+title: 禁用form默认事件
+description: 禁用form表单enter事件
+tags:
+  - html
+  - 默认事件
+keywords:
+  - html
+  - 默认事件
+---
+
+# 禁用form默认事件
+
+```js:禁用enter事件
+	let forms = document.getElementsByTagName('form')
+	let len = forms.length;
+	for(let i = 0 ;i<len;i++){
+		forms[i].addEventListener('keydown',function(event){
+			if(event.key=='Enter'){
+				event.preventDefault()
+			}
+		})
+	}
+
+```
