@@ -21,27 +21,40 @@ keywords:
 
 ```js:接雨水
 
-  function solution(arr){
-    
-    let scope = []
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function (height) {
+  let value = Math.max(...height);
 
-    // 找接水区间
-    arr.forEach((item,index)=>{
-      if(item != 0 ){
-        // 找到比当前下标大或者小的下标 切 两个校标
-        let left = arr.slice(index);
-        let findIndex = left.findIndex( leftItem => leftItem >= item)
-        if( findIndex != -1 ){
-          scope.push({
-            start:index,
-            end
-          })
-        }
-        scope.push({
-          start:index,
-          end
-        })
-      }
-    })
+  // 总体积
+  let size = value * height.length;
+
+  // 减掉柱子体积
+  size = height.reduce((count, current) => {
+    return count -= current
+  }, size)
+
+  // 最大值下标
+  let maxIndex = height.findIndex(item => item == value)
+
+  // 减掉空白体积
+  let currentMax = height[0];
+  for (let i = 0; i <= maxIndex; i++) {
+    if (height[i] >= currentMax) {
+      currentMax = height[i]
+    }
+    size -= (value - currentMax)
   }
+  currentMax = height[height.length - 1]
+  for (let i = height.length - 1; i > maxIndex; i--) {
+    if (height[i] >= currentMax) {
+      currentMax = height[i]
+    }
+    size -= (value - currentMax)
+  }
+  return size
+
+};
 ```
