@@ -19,3 +19,15 @@ enum NAME {
 }
 type Name = keyof typeof Name// 'xiaoming'|'xiaozhang'
 ```
+### 数组类型提取
+```ts
+const arr = [
+  { id: 1, name: 'John' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Bob' },
+];
+
+type ItemTypes = typeof arr[number]; // 提取数组每一项的类型
+type ItemKeys = keyof typeof arr[number]; // 提取数组每个对象的键作为类型
+type NameTypes = typeof arr[number]['name']; // 提取数组每个对象的 name 属性的类型
+```
