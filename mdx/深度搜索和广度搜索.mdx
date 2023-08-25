@@ -81,11 +81,11 @@ DFS 的基本思想：
   function findName(id, arr) {
     for (let i = 0; i < arr.length; i++) {
       let item = arr[i];
-      if (item.id == id) return item.name;
       if (Array.isArray(item.children)) {
         let str = findName(id, item.children);
         if(str) return str
       };
+      if (item.id == id) return item.name;
     }
   }
 
