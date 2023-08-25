@@ -10,8 +10,19 @@ keywords:
   - 深度搜索
   - 广度搜索
 ---
+# 搜索
 
 ## 深度搜索
+
+深度搜索 (Depth-First Search,DFS) 是一种以深度为优先的搜索算法。它从起始节点开始，沿着路径依次探索直到达到最深处，然后回溯到上一层节点，继续向未探索的分支探索，直到遍历完整个图。DFS 通常使用递归或栈数据结构来实现。
+
+以下是 DFS 的基本思想：
+
+从起始节点开始，将其标记为已访问。
+遍历当前节点的相邻节点，选择一个未访问过的节点作为下一个要探索的节点。
+重复步骤 2 直到无法继续前进，然后回溯到上一层节点，继续探索未访问的节点。
+重复步骤 2 和步骤 3 直到遍历完整个图。
+
 ```ts:深度搜索
 
   let test = [
@@ -65,6 +76,16 @@ keywords:
 ```
 
 # 广度搜索
+
+广度搜索 (Breadth-First Search,BFS) 则是一种以广度为优先的搜索算法。它从起始节点开始，逐层地扫描图中的节点，先访问离起始节点最近的节点，然后才是离起始节点稍远的节点。BFS 通常使用队列数据结构来实现。
+
+以下是 BFS 的基本思想：
+
+将起始节点放入队列，并标记为已访问。
+从队列中取出一个节点，访问该节点并将其未访问的相邻节点加入队列。
+重复步骤 2 直到队列为空。
+DFS 和 BFS 在图的遍历中具有不同的特点。DFS 可以更深入地探索图的分支，适用于查找路径或遍历整个连通图。而 BFS 则逐层地扫描图的节点，适用于查找最短路径或按层级遍历图结构
+
 ```ts:广度搜索
 
   let test = [
@@ -105,18 +126,13 @@ keywords:
     },
   ]
 
-  function findName2(id, arr) {
-    if (!Array.isArray(arr)) return '';
-    let stack = [];
-    for (let i = 0; i < arr.length; i++) {
-      let item = arr[i];
-      if (item.id == id) return item.name;
-      stack.push(item.children);
-      if(i == arr.length-1){
-        while(stack.length){
-          let str = findName(id,stack.pop())
-          if(str) return str;
-        }
+  function findName(id,arr){
+    let stack = [...arr];
+    while(stack.length){
+      let item = stack.shift();
+      if(item.id==id) return item.name;
+      if(Array.isArray(item.children)){
+        stack.push(...item.children)
       }
     }
   }
