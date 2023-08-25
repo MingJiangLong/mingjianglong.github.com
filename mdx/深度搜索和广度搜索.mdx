@@ -1,0 +1,123 @@
+---
+title: 搜索
+description: 搜索
+tags:
+  - 算法
+  - 深度搜索
+  - 广度搜索
+keywords:
+  - 算法
+  - 深度搜索
+  - 广度搜索
+---
+
+## 深度搜索
+```ts:深度搜索
+
+  let test = [
+    {
+      id: 84, //标签id
+      name: '六连包', //标签名称
+      children: [
+        {
+          id: 'p_601', //标签属性名
+          name: '可口可乐',
+          children: [
+            {
+              id: 601, //标签属性id
+              name: '可口可乐,雪碧', //标签属性名
+            },
+            {
+              id: 605,
+              name: '可口可乐芬达',
+            },
+          ],
+        },
+        {
+          id: 'k_602',
+          name: '大区',
+          children: [
+            {
+              id: 602,
+              name: '南区',
+            },
+          ],
+        },
+        {
+          id: 9,
+          name: '测试',
+          children: [],
+        },
+      ],
+    },
+  ]
+
+  function findName(id, arr) {
+    if (!Array.isArray(arr)) return '';
+    for (let i = 0; i < arr.length; i++) {
+      let item = arr[i];
+      if (item.id == id) return item.name;
+      let str = findName(id, item.children);
+      if (str) return str;
+    }
+  }
+
+```
+
+# 广度搜索
+```ts:广度搜索
+
+  let test = [
+    {
+      id: 84, //标签id
+      name: '六连包', //标签名称
+      children: [
+        {
+          id: 'p_601', //标签属性名
+          name: '可口可乐',
+          children: [
+            {
+              id: 601, //标签属性id
+              name: '可口可乐,雪碧', //标签属性名
+            },
+            {
+              id: 605,
+              name: '可口可乐芬达',
+            },
+          ],
+        },
+        {
+          id: 'k_602',
+          name: '大区',
+          children: [
+            {
+              id: 602,
+              name: '南区',
+            },
+          ],
+        },
+        {
+          id: 9,
+          name: '测试',
+          children: [],
+        },
+      ],
+    },
+  ]
+
+  function findName2(id, arr) {
+    if (!Array.isArray(arr)) return '';
+    let stack = [];
+    for (let i = 0; i < arr.length; i++) {
+      let item = arr[i];
+      if (item.id == id) return item.name;
+      stack.push(item.children);
+      if(i == arr.length-1){
+        while(stack.length){
+          let str = findName(id,stack.pop())
+          if(str) return str;
+        }
+      }
+    }
+  }
+```

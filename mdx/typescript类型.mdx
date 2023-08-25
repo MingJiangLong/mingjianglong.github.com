@@ -31,3 +31,21 @@ type ItemTypes = typeof arr[number]; // 提取数组每一项的类型
 type ItemKeys = keyof typeof arr[number]; // 提取数组每个对象的键作为类型
 type NameTypes = typeof arr[number]['name']; // 提取数组每个对象的 name 属性的类型
 ```
+
+### infer推断类型
+
+```ts:infer
+
+function Person(name: string, age: number) {
+  return {
+    name,
+    age
+  }
+}
+
+type FnParams<T> = T extends ((...args: infer P) => any) ? P : never
+type FnReturn<T> = T extends ((...args: any) => infer P) ? P : never
+
+type PersonParams = FnParams<typeof Person>// type PersonParams = [name: string, age: number]
+type PersonReturn = FnReturn<typeof Person>// type PersonReturn = {name: string; age: number;}
+```
