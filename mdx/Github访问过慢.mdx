@@ -1,0 +1,67 @@
+---
+title: Github访问过慢解决
+description: git常用命令记录，主要是容易忘
+tags:
+  - Git
+keywords:
+  - Git
+lastUpdate: 1705632291951
+id: Github访问过慢
+create: 1705631674774
+---
+
+# Github访问失败(缓慢)解决
+
+Github访问失败(缓慢)解决
+
+### 背景
+下载electron的时候报错:RequestError: connect ETIMEDOUT 20.205.243.166:443
+
+
+### 排查问题
+
+搜索引擎搜索了一下`20.205.243.166`,好像是涉及github。
+
+使用`cmd`查询了一下该ip,本机github最终解析为该ip `nslookup 20.205.243.166`
+
+![nslookup结果](/md-images/nslookupgithub.png)
+
+`cmd` ping了一下该ip也不能ping通(然后换dns，114啊，阿里免费dns也不可以,换了代理也不行。其实可能行了，我是用浏览器验验证的，最开始没考虑到浏览器dns缓存)
+
+### 解决办法
+既然dns服务商解析的ip我们这里不能ping通，那就把github的dns映射固定一个可以ping通的ip,绕过dns服务解析。
+
+1. 找一个可以用的ip
+
+    使用[多个站点ping](https://ping.chinaz.com/)工具，查询可用ip
+
+2. 修改本机hosts文件
+
+    hosts文件位置在`c盘/windows/system32/driver/etc/hosts`,在末尾添加对应映射就行了。需要注意的是，保存文件的时候要保存为ansic编码，不要用utf-8。(可以先ansic另存为`hosts.txt`,然后再把`.txt`后缀去掉就行了).
+
+    ```txt:hosts文件内容
+    # github 此为注释行
+    127.0.0.1 longjinag.com
+    20.248.137.48 github.com
+    151.101.1.194 github.global.ssl.fastly.net
+    185.199.108.153 assets-cdn.github.com
+    ```
+3. 刷新一下本地dns 然后就大功告成了，可以正常访问github了。最后你可能会发现浏览器还是不能访问到github,那是因为浏览器的dns缓存,清理一下或者重新开一个无痕就解决了。
+
+
+### 注意事项
+
+这里需要查询到和github相关的域名一并修改其对应ip,不然会出现能访问github，但是不能clone的情况。
+
+最开始我只修改了github对应的ip,然后浏览器也确实可以正常访问github了，但是当我clone项目时，连接还是超时并且npm下载依赖时会还是会报错`20.205.243.166`(修改前的ip)连接超时,但是我明明修改了ip,也生效了。所以原因就是clone是另外的域名指向了原来的ip。
+
+可能会用到的命令
+- ipconfig 查看本机ip信息
+- ipconfig/flushdns 刷新dns
+- nslookup github.com 查看dns解析的网址ip
+- ipconfig/displaydns  查看本机dns映射缓存
+
+
+
+
+
