@@ -40,11 +40,44 @@ Github访问失败(缓慢)解决
     hosts文件位置在`c盘/windows/system32/driver/etc/hosts`,在末尾添加对应映射就行了。需要注意的是，保存文件的时候要保存为ansic编码，不要用utf-8。(可以先ansic另存为`hosts.txt`,然后再把`.txt`后缀去掉就行了).
 
     ```txt:hosts文件内容
-    # github 此为注释行
-    127.0.0.1 longjinag.com
-    20.248.137.48 github.com
-    151.101.1.194 github.global.ssl.fastly.net
-    185.199.108.153 assets-cdn.github.com
+      # github 这四个常变化
+      140.82.113.4 github.com
+      140.82.113.9 nodeload.github.com
+      140.82.112.5 api.github.com
+      140.82.112.10 codeload.github.com
+
+      185.199.108.133 raw.github.com
+      185.199.108.153 training.github.com
+      185.199.108.153 assets-cdn.github.com
+      185.199.108.153 documentcloud.github.com
+      140.82.114.17 help.github.com
+
+      # domain: githubstatus.com
+      185.199.108.153 githubstatus.com
+
+      # domain: fastly.net
+      151.101.1.194 github.global.ssl.fastly.net
+
+      # domain: githubusercontent.com
+      185.199.108.133 raw.githubusercontent.com
+      185.199.108.154 pkg-containers.githubusercontent.com
+      185.199.108.133 cloud.githubusercontent.com
+      185.199.108.133 gist.githubusercontent.com
+      185.199.108.133 marketplace-screenshots.githubusercontent.com
+      185.199.108.133 repository-images.githubusercontent.com
+      185.199.108.133 user-images.githubusercontent.com
+      185.199.108.133 desktop.githubusercontent.com
+      185.199.108.133 avatars.githubusercontent.com
+      185.199.108.133 avatars0.githubusercontent.com
+      185.199.108.133 avatars1.githubusercontent.com
+      185.199.108.133 avatars2.githubusercontent.com
+      185.199.108.133 avatars3.githubusercontent.com
+      185.199.108.133 avatars4.githubusercontent.com
+      185.199.108.133 avatars5.githubusercontent.com
+      185.199.108.133 avatars6.githubusercontent.com
+      185.199.108.133 avatars7.githubusercontent.com
+      185.199.108.133 avatars8.githubusercontent.com
+
     ```
 3. 刷新一下本地dns 然后就大功告成了，可以正常访问github了。最后你可能会发现浏览器还是不能访问到github,那是因为浏览器的dns缓存,清理一下或者重新开一个无痕就解决了。
 
