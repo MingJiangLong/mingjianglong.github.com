@@ -1,0 +1,244 @@
+# JS知识整理
+
+## 基础相关
+
+- 变量和数据类型
+  - 声明变量 var let const
+
+    var 属于es5之前的变量命名，命名会有提升;`let`和`const`是es6后面出的规范，两个具有块级作用域,不能重复声明,都会出现`暂时性死区`(不能在未定义之前使用),const用于定义常量(不可变化的值),开发中通常全大写定义const
+
+    ```js
+      console.log(a) // undefined
+      var a;
+
+      console.log(let1) // Uncaught ReferenceError: let1 is not defined
+      let let1;
+
+      const PENDING = 1
+    ```
+
+  - 基本数据类型
+    - 数据类型强制转换
+      数据类型比较的时候尽量使用 `===`和`!==`
+  - 引用数据类型
+    - Object
+      - Object.create
+      - Proxy数据拦截操作
+    - Array
+      - Iterator关键字
+
+      ```js
+        // 实现一个遍历对象的函数
+
+        let data = {
+          name:"a",
+          age:"b",
+          hobby:"c",
+          [Symbol.Iterator]:function(){
+            return {
+              next:function(){
+                return {
+                  value:'动态控制done和value',
+                  done:true
+                }
+              }
+            }
+          }
+        }
+      ```
+
+    - Function
+  - 连等赋值
+
+    先取得各个左值的引用值，然后从右往左结合赋值
+    - 左值(可以被赋值的表达式)
+
+    ```js
+
+      let a = {name:1};
+      let b = a;
+      a.name = a = {name:2}
+
+      console.log(a.name)//2
+      console.log(b.name)//{name:2}
+
+      /**
+       * a.name = (a={name:2})
+       * 首先a被赋值{name:2} 返回右值{name:2}
+       * 然后a.name(引用值) = {name:2}
+       */
+    ```
+
+  - 数据类型转换
+    - toString
+    - valueOf
+
+      toString会返回数据的字符串结构, valueOf会返回数据的原始类型
+  - 类型判断
+
+    - instanceof
+
+      ```js
+      // 手动实现instanceof，主要利用了原型链知识
+      class Parent {}
+      class Child{}
+      let child = new Child()
+      
+      console.log(child instanceof Child)//true
+      console.log(child instanceof Parent)//true
+
+      function instanceof2(value,equalToClass){
+        if(value.__proto__ == null) return false;
+        if(value.__proto__ == equalToClass.prototype) return true;
+        return instanceof2(value.__proto__,equalToClass)
+      }
+      ```
+
+    - typeof
+
+    - 如果继承正确也可以使用constructor来判断类型,判断不了父类型
+
+      ```js
+        class Parent {}
+        class Child{}
+        let child = new Child()
+        console.log(child.constructor === Child)//true
+      ```
+
+    - Object.prototype.toString.call
+
+      所有对象都继承自Object，Object原型链toString方法会返回数据的字符串结构
+  - es6 新增数据类型
+    - Map
+
+      key value结构，和普通对象的主要区别是key可以为对象
+    - Set
+
+      唯一性，可以用来做简单的数据去重，Array.from可以转成数组,
+
+    - WeakMap
+    - WeakSet
+    - Symbol
+  
+  - 数据克隆
+    - 手动拷贝
+      基本数据类型和引用类型的clone,使用递归克隆需要注意`栈溢出`,使用`尾递归优化`(结尾返回当前函数的调用);
+
+    ```js
+
+      function isBaseData() {
+        // todo
+      }
+
+      function clone(data) {
+        if(isBaseData(data)) return data;
+        const needCloneData;
+        return clone(needCloneData);
+      }
+
+    ```
+
+- 运算符
+  - 算数运算符
+  - 比较运算符
+  - 逻辑运算符
+- 条件语句
+  - if语句
+  - else 语句
+  - else if 语句
+  - switch语句
+  - 三元运算符
+- 循环语句
+  - for
+  - while
+  - do while
+  - key in
+  - key of
+- 函数
+  - 声明函数
+  - 函数参数
+
+    函数参数传递的类型，js目前只有export是引用传递其余都是值传递(值和指针值)
+  - 返回值
+  - 匿名函数
+  - 箭头函数
+
+    - 箭头函数没有独立的 this、arguments 和 super 绑定，并且不可被用作方法。
+
+    - 箭头函数不能用作构造函数。使用 new 调用它们会引发 TypeError。它们也无法访问 new.target 关键字。
+
+    - 箭头函数不能在其主体中使用 yield，也不能作为生成器函数创建。
+  - 闭包函数
+- 对象和数组
+  - 创建对象和访问属性
+  - 创建数组和访问属性
+  - 变量对象和数组
+
+- 作用域和闭包
+  
+  `全局作用域`、`块级作用域`、`函数作用域`、`词法作用域`
+  - 作用域链
+  - 作用域中的变量访问
+  - 闭包的概念和用法
+- 原型链和继承
+
+- this指向
+
+  除开箭头函数以及动态改变this指向的，其余都是动态指向
+  - 全局环境
+    全局指向window
+  - 函数执行环境
+    - 作为普通函数
+      指向全局
+    - 作为对象的属性调用
+      指向该对象
+    - 使用call、apply、bind
+      指向绑定后的对象
+  - 构造函数的this
+    指向构造函数刚创建的对象
+  - 箭头函数的this
+    箭头函数没有this...
+- `EventLoop`
+- dom操作
+  - 获取元素
+  - 修改元素内容
+  - 添加事件监听器
+  - 事件类型
+- 异步
+  - 回调函数
+  - Promise 对象
+  - async/await
+- 错误处理
+  - try...catch 块
+- es6
+  - class
+    - new的过程
+
+      1. 创建一个空对象
+      2. 将空对象的原型对象链接到构造函数的原型对象
+      3. 将该对象作为构造函数this的上下文环境, 执行构造函数
+      4. 如果构造函数没有返回值，返回该对象
+  - 可选链(?.)
+  - 拓展符(...)
+- 正则
+- 浏览器缓存
+  
+## 算法相关
+
+- 数据结构
+  - 二叉树
+    - 完全二叉树
+    - 平衡二叉树
+
+    - 二叉树遍历
+
+      广度(栈) 前 中 后 序
+
+## 知识拓展
+
+- react
+- vue
+- 优化
+- webpack/vite打包
+- 微前端项目拆分
+- 工程化以及理解

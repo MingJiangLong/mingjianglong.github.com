@@ -164,14 +164,12 @@ const components = {
     />
   ),
   img(props: any) {
+    console.log(props);
+    
     return (
       <img
         alt={props?.alt ?? ""}
         src={props?.src}
-        style={{
-          width: "100%",
-          height: "auto",
-        }}
       />
     )
   },

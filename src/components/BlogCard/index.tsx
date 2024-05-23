@@ -10,8 +10,6 @@ import { MetaData } from "../../../lib"
 export default function BlogCard(props: BlogCardProps) {
   const { title, id, description, tags } = props
   const router = useRouter()
-  console.log(props);
-
   function onCardClick() {
     router.push({ pathname: `/blog/detail/${id}` })
   }

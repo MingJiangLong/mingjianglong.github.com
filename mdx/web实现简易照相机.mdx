@@ -1,0 +1,179 @@
+---
+title: PC浏览器简易相机
+description: 利用浏览器实现拍照功能并对结果进行大小裁剪
+tags:
+  - 相机
+  - 浏览器
+keywords:
+  - 相机
+  - 浏览器
+id: web实现简易照相机
+create: 1715411535452
+lastUpdate: 1716434693033
+---
+
+# PC浏览器实现简易相机
+
+```ts
+<template>
+  <Overlay :show="props.showCamera">
+    <div class="take-photo-container">
+      <video v-if="!photo" autoplay playsinline ref="videoRef"></video>
+      <img v-else :src="photo" style="object-fit: contain;width: 100%;height: 100%;" />
+    </div>
+    <div class="operate-group">
+      <Space>
+        <van-button @click="stop">结束拍照</van-button>
+        <van-button @click="reStartTakingPhoto" v-if="takePhotoStep == 2">重新拍照</van-button>
+        <van-button @click="useThis" v-if="takePhotoStep == 2">使用该照片</van-button>
+        <van-button @click="onConfirm" v-if="takePhotoStep == 1">拍照</van-button>
+      </Space>
+    </div>
+  </Overlay>
+</template>
+<script setup >
+import { Overlay, Space } from 'vant';
+import { watchEffect, watch } from 'vue';
+import { nextTick } from 'vue';
+import { ref, onMounted } from "vue"
+const props = defineProps(["showCamera"])
+const emits = defineEmits(["update:showCamera", "onUseThis"])
+const videoRef = ref()
+const photo = ref('');
+const takePhotoStep = ref(1)
+const mediaStreamRef = ref()
+function initMedia() {
+  return new Promise((s, e) => {
+    navigator?.mediaDevices?.getUserMedia({ audio: false, video: { facingMode: { exact: "environment" } } })
+    // navigator?.mediaDevices?.getUserMedia({ video: true })
+      .then((stream) => {
+        return s(stream)
+      })
+      .catch((err) => {
+        e(err)
+      });
+  })
+}
+async function initVideo() {
+  if (!videoRef.value) return
+  const mediaStream = await initMedia()
+  videoRef.value.srcObject = mediaStream
+  mediaStreamRef.value = mediaStream
+  videoRef.value.play()
+}
+
+function stop() {
+  stopVideo()
+  emits("update:showCamera", false)
+  takePhotoStep.value = 1
+  photo.value = ""
+}
+
+async function useThis() {
+  stopVideo()
+  emits("update:showCamera", false)
+  const blob = await (await fetch(photo.value)).blob()
+  const file = new File([blob], `${Date.now()}.png`, { type: blob.type })
+  emits("onUseThis", file)
+}
+
+function stopVideo() {
+  const mediaStream = mediaStreamRef.value
+  if (!mediaStream) return;
+  const tracks = mediaStream.getVideoTracks();
+  tracks.forEach(function (track) {
+    track.stop(); // 停止视频流的捕获
+  });
+  if (videoRef.value) {
+    videoRef.value.srcObject = null;
+  }
+}
+function reStartTakingPhoto() {
+  takePhotoStep.value = 1
+  photo.value = ''
+  nextTick(() => {
+    initVideo()
+  })
+}
+
+/**
+ * 利用canvas截图
+ */
+function onConfirm() {
+  takePhotoStep.value = 2
+  const canvas = document.createElement("canvas");
+  const video = videoRef.value;
+  const videoWith = video.videoWidth;
+  const videoHeight = video.videoHeight;
+  const minValue = Math.min(videoHeight, videoWith);
+
+
+  if (!video) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = 800;
+  canvas.height = 800;
+  let dxy = []
+  if (videoWith > videoHeight) {
+    dxy = [(videoWith - videoHeight) / 2, 0]
+  } else {
+    dxy = [0, (videoHeight - videoWith) / 2]
+  }
+
+  ctx.drawImage(video, ...dxy, minValue, minValue, 0, 0, 800, 800);
+  const imgUrl = canvas.toDataURL('image/png');
+  photo.value = imgUrl
+  stopVideo()
+}
+
+watchEffect(() => {
+  if (props.showCamera) {
+    reStartTakingPhoto()
+  }
+
+  // if (takePhotoStep.value != 1) {
+  //   stopVideo()
+  // }
+})
+
+
+
+</script>
+
+<style scoped lang="less">
+.take-photo-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(80vw);
+  height: calc(80vw);
+  border: 7px solid white;
+}
+
+.take-photo-container video {
+  width: calc(80vw);
+  height: calc(80vw);
+  position: relative;
+  object-fit: cover;
+}
+
+.take-photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+.operate-group {
+  position: absolute;
+  height: 100px;
+  width: 100%;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+```
+

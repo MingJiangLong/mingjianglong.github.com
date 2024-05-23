@@ -1,0 +1,22 @@
+---
+title: 数字格式化
+description: 数字格式化
+tags:
+  - JS
+  - Regex
+keywords:
+  - JS
+  - Regex
+id: toLocalString
+create: 1715411535384
+lastUpdate: 1715411535384
+---
+# toLocalString
+
+
+```JS
+
+  let a = '100000000';
+  a.toLocalString()// '100,000,000'
+  a.replace(/(?=\B(\d{3})+$)/g,",")// '100,000,000'
+```

@@ -1,0 +1,38 @@
+---
+title: Less循环生成样式
+description: Less循环生成样式
+tags:
+  - Less
+  - CSS
+keywords:
+  - Less
+  - CSS
+id: Less中循环生成class
+create: 1715411535316
+lastUpdate: 1715411535316
+---
+# Less循环生成样式
+
+### 背景
+css 有很多数量有很多变量值，比如字体大小font-size、栅格大小flex,正常我们需要一个个去定义，会自己写很多代码
+
+### less代码举例
+```html
+<style scoped lang="less">
+  @flex-values: 1, 2, 3, 4;
+  .generate-flex-classes() {
+    .looping-class(@index) when (@index > 0) {
+      .flex-@{index} {
+        flex: extract(@flex-values, @index);
+      }
+
+      .looping-class(@index - 1);
+    }
+
+    .looping-class(length(@flex-values));
+  }
+
+  .generate-flex-classes();
+</script>
+
+```

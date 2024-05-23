@@ -1,0 +1,81 @@
+---
+title: 京东购机小时达项目优化
+description: 优化
+tags:
+  - 优化
+  - H5
+  - vue
+keywords:
+  - 优化
+  - H5
+  - vue
+id: 京东门店小时达公众号优化
+create: 1716359449136
+lastUpdate: 1716433601522
+---
+
+# 京东购机小时达项目优化
+
+### 查看打包结构
+
+  安装 `rollup-plugin-visualizer`查看打包结构
+    ```js:vite.config.js
+        plugins: [
+          visualizer({
+            open: true,
+            gzipSize: true,
+            filename: "report.html",
+            brotliSize: true,
+          }),
+        ]
+    ```
+
+### 执行打包命令可以得到如下可视图
+  <img src="/md-images/report.png" style={{width:'80%',height:'70%'}}/>
+
+  从上图中可以看到node_modules我们的主要依赖的包有`pinia.mjs`、 `vant`、 `@vue`、 `axios`、 `jsbarcode/bin`、 `vsconsole`
+
+  其中pinia是状态管理已经做了minify，vant是UI组件库做了按需引入，@vue是前端框架，vconsole是控制台，由于是测试环境打包所以也打包进来了，项目中生产环境已做了控制并不会打包进来
+
+  单从分析可视图看，可以优化的点
+
+  - jsbarcode 
+
+    我们只使用到了条形码生成，但是实际上却引入整个所有的包。在官网介绍中找到对应条形码的barcode的minifyjs文件下载本地引入
+
+
+### chrome的lighthouse分析
+
+  <img src="/md-images/lighthouse.png" style={{width:'80%',height:'70%'}}/>
+
+  分析结果 FCP(首次内容绘制) LCP(最大内容渲染时间) 都是有一定问题
+
+  查看诊断结果
+   <img src="/md-images/perfect-items.png" style={{width:'80%',height:'70%'}}/>
+
+  - 文本压缩
+    vite开启gzip同时nginx也要支持
+    ```js:vite.config.js
+        plugins: [
+          viteCompression({
+            algorithm: "gzip",
+            ext: "gz",
+            deleteOriginFile: true,
+          }),
+        ]
+    ```
+  - 无用js代码 实际上vite已经有自动开启tree-shaking，但是仍然检测出来过很多无效代码
+  - 消除css阻塞
+  - 无用css代码
+  - 大文件拆分
+    查看network
+    <img src="/md-images/network.png" style={{width:'80%',height:'70%'}}/>
+
+    其中vendor文件大概500k的样子,可以拆分一下。其实从上图可以看到项目启用了http2.0，2.0的多路复用之后可以尽量把文件分的细致一点不用再像1.1一样要折中考虑文件size
+
+
+
+
+
+
+  

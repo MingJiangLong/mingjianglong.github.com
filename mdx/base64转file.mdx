@@ -1,0 +1,45 @@
+---
+title: Web环境Base64转File
+description: Base64转File
+tags:
+  - Base64
+  - File
+  - fetch
+keywords:
+  - Base64
+  - File
+  - fetch
+id: base64转file
+create: 1715411535157
+lastUpdate: 1715411536102
+---
+
+# Web环境Base64转File
+
+  web前端开发时经常会遇到canvas.toDataURL之后还需要把数据再转化成file上传
+
+## Node和Web环境通用
+```
+  function base64ToFile(base64Str:string){
+    const byteString = atob(base64Str.split(',')[1]);
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ab], { type: 'image/jpeg' });
+
+    return new File([blob], `${Date.now()}.png`, { type: blob.type })
+  }
+
+```
+## Web环境可以使用`fetch`
+
+```typescript
+
+  async function base64ToFile(base64Str:string){
+     const blob = await (await fetch(base64Str)).blob()
+     return new File([blob], `${Date.now()}.png`, { type: blob.type })
+  }
+```
+  
