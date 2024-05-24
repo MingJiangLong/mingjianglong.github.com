@@ -1,0 +1,21 @@
+---
+title: ts编译es6没有文件后缀问题
+description: node执行es6需要后缀名，但是ts打包出来的js文件引入是没有后缀的
+tags:
+  - ts
+keywords:
+  - ts
+---
+# ts编译es6没有文件后缀问题
+
+  node执行es6需要后缀名，但是ts打包出来的js文件引入是没有后缀的
+
+## 解决办法
+
+- 直接在引入资源后面加上`.js`后缀
+
+  ```ts:test.ts
+    // 实际上a是一个ts文件
+    import a from a.js 
+  ```
+- 写一个ts编译插件手动加
