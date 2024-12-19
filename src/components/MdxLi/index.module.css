@@ -1,0 +1,13 @@
+ul {
+    list-style-type: none;
+    /* 取消默认的黑点 */
+}
+
+ul li::before {
+    content: "✓";
+    /* 自定义符号，像一个勾号 */
+    color: green;
+    /* 设置符号的颜色 */
+    margin-right: 10px;
+    /* 调整符号与文本的间距 */
+}

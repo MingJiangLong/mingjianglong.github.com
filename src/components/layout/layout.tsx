@@ -1,51 +1,50 @@
-import Head from "next/head"
-import { useRouter } from "next/router"
-import { useContext, useEffect, useMemo } from "react"
-import routerInfo from "../../config/routerInfo"
-import Sidebar from "../sidebar/sidebar"
-import styles from "./layout.module.css"
-import TopNav from "../TopNav"
+import React, { PropsWithChildren, useState } from 'react';
+import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { useMenuConfig } from '@/config/MenuConfig';
+import { useRouter } from 'next/router';
 
-type LayoutProps = {
-  children: React.ReactNode
-}
-/**
- * 布局组件
- * @param param0
- */
-export default function Layout({ children }: LayoutProps) {
+const { Header, Content, Footer, Sider } = Layout;
+
+const BlogLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+  const siderStyle: React.CSSProperties = {
+    overflow: 'auto',
+    height: '100vh',
+    insetInlineStart: 0,
+    scrollbarWidth: 'thin',
+    scrollbarGutter: 'stable',
+  };
+
   const router = useRouter()
-  const title = useMemo(
-    () =>
-      routerInfo.find(item => item.path === router.pathname)?.title ??
-      "(*^▽^*)",
-    [router]
-  )
 
+  const items = useMenuConfig()
   return (
-    <>
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <div className={styles["main-container"]}>
-        {/* <TopNav title={title} /> */}
-        <main className={styles.main}>
-          <div style={{ width: "15em" }}>
-            <Sidebar />
-          </div>
+    <Layout style={{ height: '100vh', overflow: "hidden" }}>
+      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={siderStyle}>
+        <div className="demo-logo-vertical" />
+        <Menu theme="dark" defaultSelectedKeys={["/"]} mode="inline" items={items}
+          onClick={(e) => {
+            router.push(e.keyPath.reverse().join(""))
+          }}
+        />
+      </Sider>
+      <Layout style={{}} >
+        <Content style={{ overflow: "scroll", display: "flex" }}>
           <div
             style={{
               flex: 1,
-              height: "100vh",
-              display: "flex",
-              flexDirection: "column",
-              overflowY: "hidden",
+              background: colorBgContainer,
             }}
           >
             {children}
           </div>
-        </main>
-      </div>
-    </>
-  )
-}
+        </Content>
+      </Layout>
+    </Layout >
+  );
+};
+
+export default BlogLayout;

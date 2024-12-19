@@ -19,15 +19,12 @@ const withMDX = require('@next/mdx')({
 const nextConfig = {
   webpack: (config, { isServer }) => {
     config.resolve.alias.images = path.join(__dirname, "images");
+    // config.module.rules.push({
+    //   test: /\.css$/,
+    //   use: ['style-loader', 'css-loader'],
+    // });
     return config
   },
-  // exportPathMap(defaultPathMap) {
-  //   return {
-  //     ...defaultPathMap,
-  //     '/': { page: '/blog' }
-  //   }
-  // },
-
   pageExtensions: ['mdx', 'jsx', 'js', 'ts', 'tsx'],
 }
 

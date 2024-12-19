@@ -121,7 +121,6 @@ export function getMdxFileContent(id: string) {
 
 export function getMdxTags() {
     const contentList = getAllMdxFileContent()
-
     let result: { typeName: string, children: { title: string, id: string }[] }[] = []
     contentList.forEach(item => {
         const { metaData: { tags } } = item

@@ -8,6 +8,8 @@ export default function Home(props: HomeProps) {
   useEffect(() => {
     new Block(document.getElementById("block") as HTMLCanvasElement).start()
   }, [])
+
+
   return (
     <div
       id="home"

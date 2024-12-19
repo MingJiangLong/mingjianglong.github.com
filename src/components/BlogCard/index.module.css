@@ -1,16 +1,14 @@
-.card{
-   margin: auto;
+.card {
   width: 90%;
   min-height: 10em;
-  padding: 2em;
-
-  margin-top: 2em;
+  padding: 1em;
+  margin: auto;
   /* background-color: pink; */
   box-shadow: 0 0 2em #ccc;
   border-radius: 1em
 }
 
-.desc{
+.desc {
   font-weight: 500;
   font-size: 1.1rem;
   padding: 1em 2em;
@@ -28,17 +26,16 @@
   animation-fill-mode: forwards;
   -webkit-animation: bcs 0.5s 1;
   -webkit-animation-fill-mode: forwards;
-
 }
 
 
 @keyframes bcs {
   from {
-      transform: scale(1);
+    transform: scale(1);
   }
 
   to {
 
-      transform: scale(1.05);
+    transform: scale(1.05);
   }
 }

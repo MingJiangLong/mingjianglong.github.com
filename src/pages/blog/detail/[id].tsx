@@ -164,8 +164,6 @@ const components = {
     />
   ),
   img(props: any) {
-    console.log(props);
-    
     return (
       <img
         alt={props?.alt ?? ""}

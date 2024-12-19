@@ -29,18 +29,6 @@ SyntaxHighlighter.registerLanguage("ts", ts)
 SyntaxHighlighter.registerLanguage("typescript", ts)
 SyntaxHighlighter.registerLanguage("dart", dart)
 SyntaxHighlighter.registerLanguage("css", css)
-// SyntaxHighlighter.registerLanguage('mermaid', () => ({
-//   contains: [
-//     {
-//       className: 'mermaid',
-//       begin: /```mermaid(\s+\w+)?/,
-//       end: '```',
-//       subLanguage: 'mermaid',
-//       excludeBegin: true,
-//       excludeEnd: true,
-//     },
-//   ],
-// }));
 const c1 = "#071013",
   c2 = "#fffecb",
   c3 = "#20a4f3",

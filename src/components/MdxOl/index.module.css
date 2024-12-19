@@ -1,0 +1,11 @@
+.ol-list {
+    list-style-type: bold;
+}
+
+
+
+.ol-list li::marker {
+    font-weight: bold;
+    font-size: 16px;
+    /* 改变数字颜色 */
+}
