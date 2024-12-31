@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { MDXProvider } from '@mdx-js/react';
 import MdxCode from "../MdxCode";
-import { Divider } from 'antd';
+import { Divider, FloatButton } from 'antd';
 import { MDXComponents } from 'mdx/types'
 import MdxLink from "../MdxLink";
 import MdxBlockquote from "../MdxBlockquote";
@@ -14,9 +14,9 @@ import Mermaid from "../Mermaid";
 const components: MDXComponents = {
     code: (props) => <MdxCode {...props} />,
     // pre: (props) => <MdxPre {...props} />,
-    h1: ({ children }) => <MdxTitle level={3} >{children}</MdxTitle>,
-    h2: ({ children }) => <MdxTitle level={4}>{children}</MdxTitle>,
-    h3: ({ children }) => <MdxTitle level={5}>{children}</MdxTitle>,
+    h1: ({ children }) => <MdxTitle level={2} >{children}</MdxTitle>,
+    h2: ({ children }) => <MdxTitle level={3}>{children}</MdxTitle>,
+    h3: ({ children }) => <MdxTitle level={4}>{children}</MdxTitle>,
     h4: ({ children }) => <MdxTitle level={5}>{children}</MdxTitle>,
     h5: ({ children }) => <MdxTitle level={5}>{children}</MdxTitle>,
     h6: ({ children }) => <MdxTitle level={5}>{children}</MdxTitle>,

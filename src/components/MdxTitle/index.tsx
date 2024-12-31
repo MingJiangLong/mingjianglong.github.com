@@ -10,8 +10,8 @@ export default function MdxTitle(props: MdxTitleProps) {
 
 
     return (
-        <div style={{ position: Number(level) <= 3 ? "sticky" : "static", top: 0, }}>
-            <Title level={level} style={{ textAlign: Number(level) <= 3 ? "center" : "left" }}>
+        <div style={{ position: Number(level) <= 2 ? "sticky" : "static", top: 0, }}>
+            <Title level={level} style={{ textAlign: Number(level) <= 2 ? "center" : "left" }}>
                 {children}
             </Title>
             {/* <Divider /> */}

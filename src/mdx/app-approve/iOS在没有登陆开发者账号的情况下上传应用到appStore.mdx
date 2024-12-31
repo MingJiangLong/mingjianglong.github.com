@@ -1,0 +1,39 @@
+---
+title: iOS在没有登陆开发者账号的情况下上传应用到appStore
+---
+
+# iOS在没有登陆开发者账号的情况下上传应用到appStore
+
+> 使用 xcrun altool 命令可以通过命令行工具上传 .ipa 文件到 App Store Connect，这是一个不需要使用 Xcode 图形界面的方式。你可以通过这种方式将应用上传到 App Store 进行分发，或者通过 TestFlight 进行测试
+
+### 具体流程
+
+1. 准备工作
+
+    - 确保一个有效的 Apple 开发者账号，并且已经注册并能访问 App Store Connect。
+    
+    - 需要使用一个 App-Specific Password（应用专用密码），它是为了通过命令行上传应用时使用。你可以在 Apple ID 网站上生成这个密码。
+
+        - 登录 Apple ID 网站。
+
+        - 在 Security 部分找到 App-Specific Passwords，并生成一个新的密码。
+
+2. 生成应用专用密码
+
+    在 Apple ID 页面上，进入 Security 部分，找到 App-Specific Passwords，点击 Generate Password 来生成密码。
+
+3. 构建和签名 .ipa 文件
+
+    使用 Xcode 构建并签名应用，生成 .ipa 文件。
+    如果使用手动签名（例如 xcodebuild 命令），确保 .ipa 文件已经通过正确的签名证书和 Provisioning Profile 签名。
+    通过 xcrun altool 上传 .ipa 文件
+
+4. 命令上传
+
+```bash
+    xcrun altool --upload-app --type ios -f *.ipa --apiKey xxxxxx --apiIssuer xxxxxxxxxxx
+```
+例如：
+```bash
+    xcrun altool --upload-app -f /Users/youruser/Desktop/MyApp.ipa -t ios -u your-apple-id@example.com -p "your-app-specific-password"
+```

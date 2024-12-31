@@ -1,0 +1,14 @@
+.code-container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.code-part {
+    flex: 1;
+}
+
+.copy-icon-container {
+    background-color: rgb(34, 34, 34);
+    padding: 15px;
+}

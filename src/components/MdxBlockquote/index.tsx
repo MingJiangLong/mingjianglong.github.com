@@ -14,7 +14,8 @@ export default function (props: PropsWithChildren<Props>) {
                 padding: 10,
                 borderLeft: `5px solid #20a4f3e6`,
                 borderTopLeftRadius: "5px",
-                borderBottomLeftRadius: "5px"
+                borderBottomLeftRadius: "5px",
+                margin: "2em 0"
             }}
         >
             {

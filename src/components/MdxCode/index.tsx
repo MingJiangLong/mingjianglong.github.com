@@ -1,4 +1,4 @@
-import { CSSProperties, PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { PrismLight } from 'react-syntax-highlighter';
 // import { cb } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import bash from "react-syntax-highlighter/dist/cjs/languages/prism/bash"
@@ -14,8 +14,9 @@ import ts from "react-syntax-highlighter/dist/cjs/languages/prism/typescript";
 import vsc_dark_plus from "react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus"
 import css from "react-syntax-highlighter/dist/cjs/languages/prism/css"
 import config from './config';
-import { Divider } from 'antd';
-
+import { Divider, Tooltip } from 'antd';
+import styles from './index.module.css'
+import { SmileFilled, CopyOutlined } from '@ant-design/icons';
 
 
 PrismLight.registerLanguage("bash", bash)
@@ -45,9 +46,37 @@ export default function MdxCode(props: MdxCodeProps) {
 
     const matchFileName = className.match(/:(.+)/);
     if (matchFileName) fileName = matchFileName[1]
+
+    const [haveCopied, setHaveCopied] = useState(false)
+
+    const timer = useRef<NodeJS.Timeout | null>(null)
+
+    function onClearTimeout() {
+        setHaveCopied(false)
+        if (!timer.current) return;
+        clearTimeout(timer.current)
+        timer.current = null
+    }
+    async function onClickCopy(str: string) {
+        await navigator.clipboard.writeText(str)
+        setHaveCopied(true)
+        timer.current = setTimeout(() => {
+            onClearTimeout()
+        }, 2000)
+    }
+
+
+    useEffect(() => {
+        return () => {
+            onClearTimeout()
+        }
+    }, [])
+
+
     return (
         <>
-            <>
+
+            <div className={styles["code-part"]}>
                 {
                     !!fileName.length && (
                         <div className="file-name-container">
@@ -55,21 +84,55 @@ export default function MdxCode(props: MdxCodeProps) {
                         </div>
                     )
                 }
-                <PrismLight
-                    language={language}
-                    style={config}
-                    customStyle={{
-                        borderRadius: 8,
-                        borderTopLeftRadius: !!fileName.length ? 0 : 8,
-                        borderTopRightRadius: !!fileName.length ? 0 : 8,
+
+                <div className={styles["code-container"]}
+                    style={{
                         marginTop: !!fileName.length ? 0 : '1em',
+                        flex: 1,
+
                     }}
-
                 >
-                    {`${children}`}
-                </PrismLight>
+                    <PrismLight
+                        language={language}
+                        style={config}
+                        customStyle={{
+                            flex: 1,
+                            borderRadius: 0,
+                            margin: 0,
+                            borderTopLeftRadius: !!fileName.length ? 0 : 8,
+                            borderBottomLeftRadius: 8,
+                        }}
 
-            </>
+                    >
+                        {`${children}`}
+                    </PrismLight>
+                    <div
+                        className={styles["copy-icon-container"]}
+                        style={{
+                            borderTopRightRadius: !!fileName.length ? 0 : 8,
+                            borderBottomRightRadius: 8,
+
+
+                        }}
+
+                    >
+                        {
+                            haveCopied && <Tooltip title="已复制">
+                                <SmileFilled style={{ color: "#FFFFFF" }} />
+                            </Tooltip>
+                        }
+                        {
+                            !haveCopied && <Tooltip title="点击复制">
+                                <CopyOutlined style={{ color: "#FFFFFF" }} onClick={() => onClickCopy(`${children}`)} />
+                            </Tooltip>
+                        }
+                    </div>
+                </div>
+            </div>
+            {/* <div>
+                    <CopyTwoTone />
+                </div> */}
+
 
             <style jsx>
                 {`
