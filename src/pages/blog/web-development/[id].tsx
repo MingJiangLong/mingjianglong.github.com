@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 
     return {
         paths: blogsName.map(item => ({ params: { id: item } })),
-        fallback: true, // 如果没有匹配的路径，返回 404
+        fallback: false, // 如果没有匹配的路径，返回 404
     };
 }
 export async function getStaticProps(path: { params: { id: string } }) {
