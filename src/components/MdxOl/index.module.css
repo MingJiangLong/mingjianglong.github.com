@@ -1,11 +1,11 @@
 .ol-list {
-    list-style-type: bold;
+    margin: "1vh 0 1vh calc(2vw)",
 }
 
 
 
 .ol-list li::marker {
-    font-weight: bold;
-    font-size: 16px;
+    /* font-weight: bold;
+    font-size: 16px; */
     /* 改变数字颜色 */
 }

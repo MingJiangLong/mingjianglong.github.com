@@ -1,0 +1,62 @@
+---
+title: 将png图片转成iconfont
+---
+
+
+# 将png图片转成iconfont
+
+## 将png图片转化成**svg**格式
+
+有很多在线工具可以帮助你将 PNG 文件转换为 SVG 格式。
+
+
+    1. [Convertio](https://convertio.co/zh/png-svg/)
+
+    2. [Online Convert](https://image.online-convert.com/convert-to-svg)
+
+    3. [Vectorizer](https://www.vectorizer.ai/)
+    
+
+## 使用SVG生成Iconfont
+
+访问[Fontello](https://fontello.com/)，选择 **Fontello** 提供的内置图标，或者通过**SVG**上传 自己的图标,生成之后下载
+
+## 项目中使用生成的icon内容
+
+1. 把字体文件（如 woff, ttf, eot 等）和 CSS 文件 上传到你的项目中（例如放到 fonts 和 css 文件夹下）。
+
+2. 在CSS 文件中，通过 @font-face 引用字体文件，并使用类选择器来显示图标。例如
+
+    ```css
+    @font-face {
+        font-family: 'iconfont';
+        src: url('fonts/iconfont.eot');
+        src: url('fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+            url('fonts/iconfont.woff2') format('woff2'),
+            url('fonts/iconfont.woff') format('woff'),
+            url('fonts/iconfont.ttf') format('truetype'),
+            url('fonts/iconfont.svg#iconfont') format('svg');
+    }
+
+    /* 图标样式 */
+    .icon {
+        font-family: 'iconfont';  /* 引用字体 */
+        font-style: normal;
+        font-weight: normal;
+        speak: none;
+        display: inline-block;
+        text-decoration: none;
+        text-align: center;
+        line-height: 1;
+    }
+
+    /* 示例图标 */
+    .icon-home:before {
+        content: "\e600";  /* 使用生成的 Unicode 字符 */
+    }
+    ```
+3. 在 HTML 文件中使用图标
+
+    ```html
+    <i class="icon icon-home"></i>
+    ```

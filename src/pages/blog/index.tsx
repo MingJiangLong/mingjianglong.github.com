@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react"
+import React, { useMemo, useState } from "react"
 import BlogCard from "../../components/BlogCard"
 import Empty from "../../components/Empty"
 import SearchBar from "../../components/SearchBar"

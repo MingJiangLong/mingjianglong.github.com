@@ -14,8 +14,9 @@ export default function Home(props: HomeProps) {
     <div
       id="home"
       style={{
-        height: "100%",
+        flex: 1,
         display: "flex",
+        flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
       }}

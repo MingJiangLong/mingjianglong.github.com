@@ -1,5 +1,5 @@
 
-import { Typography } from 'antd';
+import { Tooltip, Typography } from 'antd';
 import { PropsWithChildren } from 'react';
 const { Link } = Typography;
 import {
@@ -12,9 +12,11 @@ export default function (props: PropsWithChildren<Props>) {
 
     const { children, href } = props
     return (
-        <Link href={href} target="_blank" rel="noopener noreferrer" style={{ padding: "0 3px" }}>
-            <LinkOutlined style={{ paddingRight: 3, }} />
-            {children}
-        </Link>
+        <Tooltip color='#108ee9' title={href}>
+            <Link href={href} target="_blank" rel="noopener noreferrer" style={{ padding: "0 3px" }}>
+                <LinkOutlined style={{ paddingRight: 3, }} />
+                {children}
+            </Link>
+        </Tooltip>
     )
 }

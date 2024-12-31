@@ -31,16 +31,9 @@ const BlogLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
           }}
         />
       </Sider>
-      <Layout style={{}} >
-        <Content style={{ overflow: "scroll", display: "flex" }}>
-          <div
-            style={{
-              flex: 1,
-              background: colorBgContainer,
-            }}
-          >
-            {children}
-          </div>
+      <Layout  >
+        <Content style={{ overflow: "scroll", display: "flex", margin: 14 }}>
+          {children}
         </Content>
       </Layout>
     </Layout >

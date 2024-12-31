@@ -9,7 +9,7 @@ export default function (props: PropsWithChildren<Props>) {
     const { children } = props
 
     return (
-        <Paragraph color="#071013f2" >
+        <Paragraph color="#071013f2" style={{ margin: "2em 0" }}>
             {children}
         </Paragraph >
     )

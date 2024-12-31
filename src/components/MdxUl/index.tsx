@@ -1,20 +1,12 @@
 import { PropsWithChildren } from "react"
-import styles from "./index.module.css"
+import { Flex } from "antd"
 type Props = {
 
 }
 export default function (props: PropsWithChildren<Props>) {
     const { children } = props
     return (
-        <ul
-            className={styles["ul-list"]}
-            // style={{
-            //     // fontSize: "calc(1rem + 0.1vw)",
-            //     color: "#071013e6",
-            //     margin: "1vh 0 1vh calc(2vw)",
-            //     overflowWrap: "break-word",
-            // }}
-        >
+        <ul style={{ marginBottom: 20 }}>
             {children}
         </ul>
     )

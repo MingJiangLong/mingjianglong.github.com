@@ -1,6 +1,8 @@
 
 const path = require('path')
 const debug = process.env.NODE_ENV !== "production";
+// import mdxMermaid from "mdx-mermaid"
+const { Mermaid } = import("mdx-mermaid/lib/Mermaid")
 
 
 const withMDX = require('@next/mdx')({
@@ -9,9 +11,10 @@ const withMDX = require('@next/mdx')({
     // If you use remark-gfm, you'll need to use next.config.mjs
     // as the package is ESM only
     // https://github.com/remarkjs/remark-gfm#install
-    // remarkPlugins: [],
-    // rehypePlugins: [],
-    // providerImportSource: '@mdx-js/react',
+    // remarkPlugins: [[import("mdx-mermaid"), { output: 'svg' }]],
+    // rehypePlugins: [import("mdx-mermaid"), { output: 'svg' }],
+    // components: { mermaid: Mermaid, Mermaid }
+    providerImportSource: '@mdx-js/react',
   },
 })
 

@@ -10,7 +10,7 @@ export default function (props: Props) {
     const { blogInfoArr } = props
     const route = useRouter();
     function onClick(fileName: string) {
-        route.push(`/blog/${info.column}/${fileName}`)
+        route.push(`/doc/${fileName}`)
     }
     return (
         <CommonBlogsHome blogInfoArr={blogInfoArr} onPress={onClick} />

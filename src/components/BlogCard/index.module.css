@@ -1,8 +1,7 @@
 .card {
-  width: 90%;
+  width: 100%;
   min-height: 10em;
   padding: 1em;
-  margin: auto;
   /* background-color: pink; */
   box-shadow: 0 0 2em #ccc;
   border-radius: 1em
@@ -36,6 +35,6 @@
 
   to {
 
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 }

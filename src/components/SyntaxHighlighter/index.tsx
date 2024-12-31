@@ -15,7 +15,6 @@ import vsc_dark_plus from "react-syntax-highlighter/dist/cjs/styles/prism/vsc-da
 import css from "react-syntax-highlighter/dist/cjs/languages/prism/css"
 
 import code_highlighter_style from "./code_highlighter_style"
-// import mermaid from 'react-mermaid';
 
 SyntaxHighlighter.registerLanguage("bash", bash)
 SyntaxHighlighter.registerLanguage("json", json)

@@ -1,7 +1,7 @@
-import BlogCard from '@/components/BlogCard';
+import CommonBlogsHome from '@/components/CommonBlogsHome';
 import { I_BlogInfo, readColumnBlogs } from "@/utils/readBlogs";
 import { useRouter } from 'next/router';
-const COLUMN_NAME = "react-native"
+import info from './index.json'
 type Props = {
     blogInfoArr: I_BlogInfo[]
 }
@@ -10,18 +10,10 @@ export default function (props: Props) {
     const { blogInfoArr } = props
     const route = useRouter();
     function onClick(fileName: string) {
-        route.push(`/blog/${COLUMN_NAME}/${fileName}`)
+        route.push(`/blog/${info.column}/${fileName}`)
     }
     return (
-        <div style={{ display: 'flex', flexDirection: "column", flex: 1, rowGap: 20, padding: 25 }}>
-            {
-                blogInfoArr.map(item => <BlogCard
-                    key={item.frontMatter.title}
-                    {...item.frontMatter}
-                    onClick={() => onClick(item.fileName)}
-                />)
-            }
-        </div>
+        <CommonBlogsHome blogInfoArr={blogInfoArr} onPress={onClick} />
     )
 }
 
@@ -32,7 +24,7 @@ export default function (props: Props) {
  * @returns 
  */
 export async function getStaticProps() {
-    const result = await readColumnBlogs(COLUMN_NAME)
+    const result = await readColumnBlogs(info.column)
     return {
         props: {
             blogInfoArr: result

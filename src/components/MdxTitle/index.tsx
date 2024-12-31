@@ -1,13 +1,20 @@
 import { PropsWithChildren } from "react"
+import { Affix, Divider, Typography, } from 'antd';
+const { Title, Paragraph } = Typography;
 
 export type MdxTitleProps = PropsWithChildren<{
-    title?: string
+    level?: 1 | 2 | 3 | 4 | 5
 }>
 export default function MdxTitle(props: MdxTitleProps) {
-    const { children, title } = props
+    const { children, level } = props
+
+
     return (
-        <div>
-            {children ?? title}
+        <div style={{ position: Number(level) <= 3 ? "sticky" : "static", top: 0, }}>
+            <Title level={level} style={{ textAlign: Number(level) <= 3 ? "center" : "left" }}>
+                {children}
+            </Title>
+            {/* <Divider /> */}
         </div>
     )
 }

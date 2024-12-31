@@ -13,6 +13,8 @@ export default function (props: PropsWithChildren<Props>) {
                 backgroundColor: "#20a4f326",
                 padding: 10,
                 borderLeft: `5px solid #20a4f3e6`,
+                borderTopLeftRadius: "5px",
+                borderBottomLeftRadius: "5px"
             }}
         >
             {
