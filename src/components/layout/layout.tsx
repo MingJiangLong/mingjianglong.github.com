@@ -1,7 +1,8 @@
-import React, { PropsWithChildren, useState } from 'react';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { FloatButton, Layout, Menu, theme } from 'antd';
 import { useMenuConfig } from '@/config/MenuConfig';
 import { useRouter } from 'next/router';
+import ToTop from '../ToTop';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -19,8 +20,24 @@ const BlogLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   };
 
   const router = useRouter()
-
   const items = useMenuConfig()
+
+  const rightPartDomRef = useRef<HTMLDivElement>(null)
+
+  const [hasScrollbar, setHasScrollbar] = useState(false);
+
+  const checkTimer = useRef<NodeJS.Timeout>()
+
+  function onInvokeWhenScroll(e: React.UIEvent<HTMLDivElement, UIEvent>) {
+    if (checkTimer.current || !rightPartDomRef.current) return;
+    setHasScrollbar(rightPartDomRef.current.scrollTop > 50)
+    checkTimer.current = setTimeout(() => {
+      if (!checkTimer.current) return;
+      clearTimeout(checkTimer.current)
+      checkTimer.current = undefined;
+    }, 100)
+
+  }
   return (
     <Layout style={{ height: '100vh', overflow: "hidden" }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={siderStyle}>
@@ -31,9 +48,19 @@ const BlogLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
           }}
         />
       </Sider>
-      <Layout  >
-        <Content style={{ overflow: "scroll", display: "flex", margin: 14 }}>
+      <Layout>
+        <Content
+          ref={rightPartDomRef}
+          style={{ overflow: "scroll", display: "flex", margin: 14, position: "relative" }}
+          onScroll={onInvokeWhenScroll}
+        >
           {children}
+          <FloatButton.BackTop />
+          {
+            hasScrollbar && (
+              <ToTop onClick={() => rightPartDomRef.current?.scrollTo({ top: 1 })} />
+            )
+          }
         </Content>
       </Layout>
     </Layout >

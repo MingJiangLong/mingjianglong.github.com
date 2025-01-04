@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { memo, PropsWithChildren } from "react";
 import { MDXProvider } from '@mdx-js/react';
 import MdxCode from "../MdxCode";
 import { Divider, FloatButton } from 'antd';
@@ -13,7 +13,6 @@ import MdxTitle from "../MdxTitle";
 import Mermaid from "../Mermaid";
 const components: MDXComponents = {
     code: (props) => <MdxCode {...props} />,
-    // pre: (props) => <MdxPre {...props} />,
     h1: ({ children }) => <MdxTitle level={2} >{children}</MdxTitle>,
     h2: ({ children }) => <MdxTitle level={3}>{children}</MdxTitle>,
     h3: ({ children }) => <MdxTitle level={4}>{children}</MdxTitle>,
@@ -35,12 +34,14 @@ const components: MDXComponents = {
 export type MdxContainerProps = PropsWithChildren<{
 
 }>
-export default function MdxContainer(props: MdxContainerProps) {
+export default memo(
+    function MdxContainer(props: MdxContainerProps) {
 
-    const { children } = props
-    return (
-        <MDXProvider components={components}>
-            {children}
-        </MDXProvider>
-    )
-}
+        const { children } = props
+        return (
+            <MDXProvider components={components}>
+                {children}
+            </MDXProvider>
+        )
+    }
+)
