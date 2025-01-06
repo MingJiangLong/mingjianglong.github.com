@@ -2321,7 +2321,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.10, dayjs@npm:^1.11.11":
+"dayjs@npm:^1.11.10, dayjs@npm:^1.11.11, dayjs@npm:^1.11.13":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
   checksum: f388db88a6aa93956c1f6121644e783391c7b738b73dbc54485578736565c8931bdfba4bb94e9b1535c6e509c97d5deb918bbe1ae6b34358d994de735055cca9
@@ -5150,6 +5150,7 @@ __metadata:
     "@types/react-syntax-highlighter": ^15.5.6
     antd: ^5.22.5
     crypto-js: ^4.1.1
+    dayjs: ^1.11.13
     eslint: 8.36.0
     eslint-config-next: 13.2.4
     fs-extra: ^11.2.0

@@ -11,6 +11,7 @@ import MdxOl from "../MdxOl";
 import MdxLi from "../MdxLi";
 import MdxTitle from "../MdxTitle";
 import Mermaid from "../Mermaid";
+import WorkContent from "../WorkContent";
 const components: MDXComponents = {
     code: (props) => <MdxCode {...props} />,
     h1: ({ children }) => <MdxTitle level={2} >{children}</MdxTitle>,
@@ -28,7 +29,8 @@ const components: MDXComponents = {
     img: ({ src, alt }) => <img src={src} alt={alt} style={{ maxWidth: '100%', borderRadius: '8px' }} />,
     hr: () => <Divider />,
 
-    Mermaid: ({ chart }) => <Mermaid chart={`${chart}`} />
+    Mermaid: ({ chart }) => <Mermaid chart={`${chart}`} />,
+    WorkContent: ({ data }) => <WorkContent data={data} />,
 }
 
 export type MdxContainerProps = PropsWithChildren<{

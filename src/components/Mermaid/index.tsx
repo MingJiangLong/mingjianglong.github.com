@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Mermaid } from 'mdx-mermaid/lib/Mermaid';
-import mermaid from 'mermaid';
 
 type MermaidProps = {
     chart: string
