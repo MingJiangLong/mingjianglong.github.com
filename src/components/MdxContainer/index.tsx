@@ -33,6 +33,7 @@ const components: MDXComponents = {
     WorkContent: ({ data }) => <WorkContent data={data} />,
 }
 
+
 export type MdxContainerProps = PropsWithChildren<{
 
 }>
