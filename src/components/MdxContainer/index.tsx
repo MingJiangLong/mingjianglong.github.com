@@ -1,7 +1,7 @@
 import { memo, PropsWithChildren } from "react";
 import { MDXProvider } from '@mdx-js/react';
 import MdxCode from "../MdxCode";
-import { Divider, FloatButton } from 'antd';
+import { Divider, FloatButton, Tag } from 'antd';
 import { MDXComponents } from 'mdx/types'
 import MdxLink from "../MdxLink";
 import MdxBlockquote from "../MdxBlockquote";
@@ -26,11 +26,14 @@ const components: MDXComponents = {
     ol: (props) => (<MdxOl {...props} />),
     li: (props) => (<MdxLi {...props} />),
     blockquote: ({ children }) => <MdxBlockquote>{children}</MdxBlockquote>,
-    img: ({ src, alt }) => <img src={src} alt={alt} style={{ maxWidth: '100%', borderRadius: '8px' }} />,
+    img: ({ src, alt }) => {
+        return <img src={src} alt={alt} style={{ maxWidth: '100%', borderRadius: '8px',padding:"2em" }} />
+    },
     hr: () => <Divider />,
 
     Mermaid: ({ chart }) => <Mermaid chart={`${chart}`} />,
     WorkContent: ({ data }) => <WorkContent data={data} />,
+    Tag: ({ children }) => <Tag>{children}</Tag>
 }
 
 

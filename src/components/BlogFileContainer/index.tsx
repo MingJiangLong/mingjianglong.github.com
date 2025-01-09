@@ -10,9 +10,7 @@ type Props = {
 export default function (props: Props) {
     const { serializeResult } = props
     return (
-        <div style={{ padding: 14, flex: 1, margin: 14 }} onScroll={()=>{
-            console.log("??")
-        }}>
+        <div style={{ padding: 14, flex: 1, margin: 14 }}>
             <MDXRemote {...serializeResult} />
             <FloatButton.BackTop />
         </div>

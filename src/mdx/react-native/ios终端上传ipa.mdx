@@ -1,0 +1,33 @@
+---
+title: ios终端xcrun上传ipa文件
+time: "2025-01-09 10:19:00" 
+tags: 
+    - ios
+---
+
+# ios终端xcrun上传ipa文件
+
+
+
+###   背景
+    
+    打包mac**没有登陆开发者账号**，没有办法使用xcode的自动上传，只能使用终端上传ipa文件
+    
+### 步骤
+
+1. 打开[App Store Connect](https://appstoreconnect.apple.com/),
+
+2. 进入[用户和访问](https://appstoreconnect.apple.com/access/users)
+
+3. 选择[集成](https://appstoreconnect.apple.com/access/integrations/api)
+
+4. 点击`+`添加新的密钥，该步骤会生成 **Issuer ID** 和 **密钥 ID**
+
+    ![添加密钥](/md-images/image1.png)
+
+5. 使用 **Issuer ID** 和 **密钥 ID**进行上传
+
+    ```shell
+        xcrun altool --upload-app --type ios -f *.ipa --apiKey 密钥ID --apiIssuer IssuerID
+    ```
+

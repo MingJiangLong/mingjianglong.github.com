@@ -4,7 +4,9 @@
   padding: 1em;
   /* background-color: pink; */
   box-shadow: 0 0 2em #ccc;
-  border-radius: 1em
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
 }
 
 .desc {
@@ -17,7 +19,8 @@
 .tag-container {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  margin: .5em 0;
+  /* justify-content: flex-end; */
 }
 
 .card:hover {
