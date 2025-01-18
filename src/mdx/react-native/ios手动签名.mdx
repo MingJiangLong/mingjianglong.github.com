@@ -1,0 +1,35 @@
+---
+    title: iOS手动签名
+    time: "2025-01-16 18:25:00"
+---
+# iOS手动生成签名
+
+一、 生成证书请求（CSR）
+
+- 打开 Keychain Access（钥匙串访问）。
+
+- 选择 Keychain Access -> Certificate Assistant -> Request a Certificate from a Certificate Authority(向证书颁发机构请求证书)。
+
+- 输入你的电子邮件地址和常用名称，选择 Saved to disk 生成 CSR 文件。
+
+    <img src="/md-images/image2.png" style={{width:"50%"}}/>
+
+二、创建 Apple 开发者证书[Apple Developer](https://developer.apple.com/)
+
+- Certificates，点击`+` 按钮来创建新证书
+
+    <img src="/md-images/image3.png" style={{width:"50%"}}/>
+
+- 选择合适证书类型
+    
+    - **Apple Distribution**和**iOS Distribution**区别在于apple平台更加广泛
+    
+        <img src="/md-images/image4.png" style={{width:"50%"}}/>
+
+- 上传刚才生成的**CSR文件**并下载cer文件
+
+- 双击安装到keychain
+
+三、配置描述文件（Provisioning Profile）
+
+- 下载之后双击安装或者在打包时手动导入

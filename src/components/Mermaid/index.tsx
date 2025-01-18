@@ -21,13 +21,18 @@ export default function (props: MermaidProps) {
 
 
                 isClient ? (
-                    <Mermaid chart={`${chart}`} config={{
-                        mermaid: {
-                            suppressErrorRendering: false,
-                            startOnLoad: true,
-                        },
-                       
-                    }} />
+                    <Mermaid chart={`${chart}`}
+                        config={{
+
+                            mermaid: {
+                                suppressErrorRendering: false,
+                                startOnLoad: true,
+                                gantt: {},
+
+                            },
+                            output: "ast"
+
+                        }} />
                 ) : <Skeleton />
             }
 
