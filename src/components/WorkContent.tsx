@@ -9,7 +9,8 @@ enum WorkStatus {
     ACTIVE = 'active',// 激活
     PAUSED = "paused",// 暂停
     CRIT = "crit",// 关键任务
-    PLANNED = "planned"// 计划任务
+    PLANNED = "planned",// 计划任务
+    IGNORED = "ignored"
 }
 interface WorkInfo {
     title: string
@@ -22,7 +23,7 @@ type WorkContentProps = {
 }
 export default function WorkContent(props: WorkContentProps) {
 
-    
+
     const { data } = props;
     const now = dayjs();
     const startOfWeek = now.startOf('week').add(1, 'day').startOf('day'); // 一周的开始时间是周一 00:00
@@ -54,7 +55,8 @@ export default function WorkContent(props: WorkContentProps) {
         let start = 0
         data.forEach((workInfos) => {
             workInfos.forEach((workInfo) => {
-                const { title, } = workInfo;
+                const { title, status } = workInfo;
+                if (status == WorkStatus.IGNORED) return;
                 content.add(`${start + 1}. ${title}`);
                 start++;
             })
