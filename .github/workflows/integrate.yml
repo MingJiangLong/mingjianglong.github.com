@@ -15,24 +15,28 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install and Build
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20.18.0
-      - run: npm install
-      # - run: npm run transMD
-      - run: npm run build
-      - run: npm run export
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
+      - name: Build
+        run: npm run build
+      - name: Export
+        run: npm run export
         env:
             CI: true
-      - run: touch out/.nojekyll
-
+      - name: Create .nojekyll
+        run: touch out/.nojekyll
+      
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
