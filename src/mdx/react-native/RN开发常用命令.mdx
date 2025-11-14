@@ -1,13 +1,19 @@
 ---
 title: RN开发常用命令
+level: 999
+tags:
+    - 命令
 ---
 
 # RN开发常用命令
 
 ### 项目初始化
-
-    ```shell
+- 初始化RN项目
+    ```cmd
         npx @react-native-community/cli@latest init demo
+    ```
+    ```cmd
+        npx @react-native-community/cli@latest init demo --version 0.74.5
     ```
 
 ### 网络相关
@@ -24,7 +30,15 @@ title: RN开发常用命令
         adb devices
     ```
 
-- abd打开RN开发者菜单
+-   abd打开RN开发者菜单
     ```shell
         adb shell input keyevent 82
     ``` 
+-   Android 设备能够访问你本地计算机的网络端口
+    ```shell
+        adb -s 设备id reverse tcp:端口 tcp:端口
+    ``` 
+-   Android 设备和开发者的机器之间创建端口转发。
+    ```
+        adb -s 设备id reverse tcp:端口 tcp:端口
+    ```

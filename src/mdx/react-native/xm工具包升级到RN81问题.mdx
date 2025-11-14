@@ -1,0 +1,33 @@
+---
+title: xm工具包升级到RN81问题
+---
+# xm工具包升级到RN81问题
+
+## 存在问题的包
+> obfuscator-io-metro-plugin
+
+    报错<code style={{color:'red'}}>.jso/\*\*/undefined</code>
+    可替换为 `@shahil_m/obfuscator-io-metro-plugin`,使用方法不变
+
+> react-native-sound
+
+    报错 <code style={{color:'red'}}>filename.startWith not a function?</code>
+    因为新的PR导致了新问题，需要更改使用方式
+
+    在 Android项目 `android/app/src/res/row`  添加相关mp3资源
+
+    
+    ```js
+        # android/app/src/res/row/action0.mpg
+
+        new Sound("action0.mp3",Sound.MainBundle)
+    ```
+
+
+> react-native-jailbreak
+
+    android未对齐16kb,本身我们也不使用android,直接`移除android包`
+
+> react-native-splash-view
+
+    可替换包 `react-native-splash-view`

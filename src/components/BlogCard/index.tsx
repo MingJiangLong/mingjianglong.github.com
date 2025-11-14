@@ -12,7 +12,7 @@ const { Title } = Typography
  * @param props {BlogCardProps}
  */
 export default function BlogCard(props: BlogCardProps) {
-  const { title, desc, tags, onClick, time } = props
+  const { title, desc, tags, onClick, time, updateTime } = props
   return (
     <div className={styles["card"]} onClick={() => {
       isFunction(onClick) && onClick()
@@ -35,8 +35,13 @@ export default function BlogCard(props: BlogCardProps) {
 
       <div style={{ flex: 1 }}></div>
       {
-        time && <Typography style={{ textAlign: "right" }}>创建时间: {dayjs(time).format("YYYY-MM-DD")}</Typography>
+        updateTime && <Typography style={{ textAlign: "right", fontSize: 10 }}>更新时间: {dayjs(updateTime).format("YYYY-MM-DD")}</Typography>
       }
+      {
+        time && <Typography style={{ textAlign: "right", fontSize: 10 }}>创建时间: {dayjs(time).format("YYYY-MM-DD")}</Typography>
+      }
+
+
     </div>
   )
 }

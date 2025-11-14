@@ -3,6 +3,7 @@ import path from "path";
 import { serialize } from 'next-mdx-remote/serialize';
 import matter from 'gray-matter'; // 用于解析 Front Matter
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
+import dayjs from "dayjs";
 
 /**
  * 
@@ -68,12 +69,40 @@ export async function readColumnBlogs(columnName: string) {
             serializeResult: source
         })
     }
-    return blogInfoArr;
+
+
+    let haveLevelBlogInfoArr: I_BlogInfo[] = []
+    let haveTimeBlogInfoArr: I_BlogInfo[] = []
+    let haveUpdateTimeBlogInfoArr: I_BlogInfo[] = []
+    let leftBlogInfoArr: I_BlogInfo[] = []
+
+
+    for (let blogInfo of blogInfoArr) {
+        const frontMatter = blogInfo.frontMatter
+        if (frontMatter.level) {
+            haveLevelBlogInfoArr.push(blogInfo)
+            continue
+        }
+        if (frontMatter.updateTime) {
+            haveUpdateTimeBlogInfoArr.push(blogInfo)
+            continue
+        }
+        if (frontMatter.createTime) {
+            haveTimeBlogInfoArr.push(blogInfo)
+            continue
+        }
+        leftBlogInfoArr.push(blogInfo)
+    }
+    // 优先level排名 再编辑时间排名
+    return [...haveLevelBlogInfoArr, ...haveUpdateTimeBlogInfoArr, ...haveTimeBlogInfoArr, ...leftBlogInfoArr]
 }
 
 export interface I_BlogInfo {
     fileName: string,
     frontMatter: {
+        level?: number
+        createTime?: string
+        updateTime?: string
         [k: string]: any
     }
     serializeResult: MDXRemoteSerializeResult

@@ -1,0 +1,32 @@
+---
+title: RN开发问题汇总
+level: 998
+---
+# RN开发问题汇总
+
+
+- **react-native-select-contact**相关
+    1. Cannot open the contact selector twice
+
+    添加queries相关代码 如下:
+
+    ```xml:AndroidManifest.xml
+
+        <manifest >
+            <application></application>
+            <queries>
+                <intent>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/contact" />
+                </intent>
+            </queries>
+        </manifest>
+    ```
+
+- unable to initiate PIF transfer session (operation in progress?)
+
+    移除文件 **~/Library/Caches/org.swift.swiftpm**
+    ```shell
+        rm -rf ~/Library/Caches/org.swift.swiftpm
+    ```

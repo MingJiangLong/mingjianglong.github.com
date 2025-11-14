@@ -1,0 +1,47 @@
+---
+title: 荀墨App需要集成内容
+---
+
+# 荀墨App需要集成内容
+
+1. Firebase
+
+    - Android
+    ```gradle:/android/build.gradle
+        buildscript {
+            dependencies {
+                // ... other dependencies
+                classpath 'com.google.gms:google-services:4.4.2'
+                // Add me --- /\
+            }
+        }
+    ```
+
+    ```gradle:/android/app/build.gradle
+        apply plugin: 'com.android.application'
+        apply plugin: 'com.google.gms.google-services' // <- Add this line  
+    ```
+     - IOS
+     ```mm:/ios/{projectName}/AppDelegate.mm
+
+        #import "AppDelegate.h"
+        #import <Firebase.h> // Add me --- \/
+
+        @implementation AppDelegate
+
+        - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+        {
+            self.moduleName = @"thai_yofund";
+            self.initialProps = @{};
+            [super application:application didFinishLaunchingWithOptions:launchOptions];
+            [FIRApp configure];   // Add me --- \/
+            return YES;
+        }
+
+     ```
+
+     ```Podfile:/ios/Podfile
+        # right after use_react_native
+        use_frameworks! :linkage => :static
+        $RNFirebaseAsStaticFramework = true
+     ```

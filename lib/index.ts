@@ -45,8 +45,9 @@ export function getAllMdxFileContent(): MdxList {
         const fileContent = fs.readFileSync(path.resolve(mdxDir, file.base))
         const { data, content } = matter(fileContent);
         let metaData = data as any;
-        return syncMetaData(metaData, file.name, content)
-    }).sort((a, b) => b.metaData.lastUpdate - a.metaData.lastUpdate)
+        let temp = syncMetaData(metaData, file.name, content)
+        return temp
+    }).sort((a, b) => (b.metaData.level ?? 0) - (a.metaData.level ?? 0))
     writeInStore()
 
     return result
@@ -151,6 +152,7 @@ export type MetaData = {
     lastUpdate: number
     tags: string[]
     keywords: string[]
+    level: number
 }
 
 export type MdxFileContent = {
