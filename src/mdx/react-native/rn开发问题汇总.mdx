@@ -33,4 +33,7 @@ createTime: '2025-10-17 15:19:25'
     ```shell
         rm -rf ~/Library/Caches/org.swift.swiftpm
     ```
-- 测试一下更新时间
+- A problem occurred starting process 'command 'npx'
+
+    如果本地有正确配置node，那大概率是Android Studio 的Gradle JDK问题。
+    检查 `Setting`->`Building`,`Executing,Deployment`->`Build Tools`->`Gradle`->`Gradle JDK`是否正确，按照RN官网配置，我们应该选择`Zulu17.0.12`相关
