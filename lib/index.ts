@@ -47,7 +47,7 @@ export function getAllMdxFileContent(): MdxList {
         let metaData = data as any;
         let temp = syncMetaData(metaData, file.name, content)
         return temp
-    }).sort((a, b) => (b.metaData.level ?? 0) - (a.metaData.level ?? 0))
+    })
     writeInStore()
 
     return result

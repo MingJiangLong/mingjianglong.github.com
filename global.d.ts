@@ -63,3 +63,8 @@ interface PrivateBlogData extends BaseBlogData {
 interface NormalBlogData extends BaseBlogData {
 
 }
+
+
+declare module "md5" {
+  export default function (str: string): string
+}

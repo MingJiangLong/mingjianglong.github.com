@@ -50,7 +50,11 @@ export default function BlogList(props: { mdxList: MdxList }) {
 }
 
 export function getStaticProps() {
-  const mdxList = getAllMdxFileContent()
+  const mdxList = getAllMdxFileContent();
+
+  console.log(mdxList);
+  
+
   return {
     props: { mdxList },
   }
