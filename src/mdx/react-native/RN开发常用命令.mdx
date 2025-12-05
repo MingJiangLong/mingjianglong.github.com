@@ -3,8 +3,8 @@ title: RN开发常用命令
 topLevel: true
 tags:
   - shell
-md5: b77a73c74cc6974b1d3f20ae39b9b274
-updateTime: '2025-11-17 15:19:25'
+md5: c4d652c713fb6f2a79c879c9b8c434c8
+updateTime: '2025-12-02 16:19:13'
 createTime: '2025-11-10 15:19:25'
 ---
 
@@ -22,14 +22,18 @@ createTime: '2025-11-10 15:19:25'
         adb devices
     ```
 
--   abd打开RN开发者菜单
+- abd打开RN开发者菜单
     ```shell
         adb shell input keyevent 82
     ``` 
--   Android 设备和开发者的机器之间创建端口转发。
+- Android 设备和开发者的机器之间创建端口转发。
     ```shell
         adb -s 设备id reverse tcp:端口 tcp:端口
     ``` 
+- 查看芯片架构
+    ```shell
+        adb shell getprop ro.product.cpu.abi
+    ```
 
 ### pod相关
 
