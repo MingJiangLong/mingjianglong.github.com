@@ -6,7 +6,7 @@ import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import dayjs from "dayjs";
 import md5 from 'md5'
 import { writeFileSync } from "fs";
-
+import fg from 'fast-glob'
 
 
 /**
@@ -35,19 +35,23 @@ export async function isMdxFile(path: string) {
 }
 
 
+async function readColumnBlogsPaths(columnName: string) {
+    const dirPath = path.join(process.cwd(), "src/mdx", columnName)
+    await ensureDir(dirPath)
+    let filePaths = await fg([`${dirPath}/**/*.mdx`], { dot: true });
+    return filePaths = filePaths.filter(item => item.endsWith(".mdx"))
+}
+
 /**
  * 读取专栏mdx文件
  * @param columnName 
  * @returns 
  */
 export async function readColumnBlogsName(columnName: string) {
-    const dirPath = path.join(process.cwd(), "src/mdx", columnName)
-    await ensureDir(dirPath)
-    const fileNames = await readdir(dirPath);
-    return fileNames.filter(fileName => {
-        const filePath = path.join(dirPath, fileName);
-        return isMdxFile(filePath)
-    })
+    const filePaths = await readColumnBlogsPaths(columnName)
+    return filePaths.map(item => item.lastIndexOf("/") == -1 ? item : item.substring(item.lastIndexOf("/") + 1))
+
+
 }
 /**
  * 读取专栏下所有的blog文件
@@ -55,22 +59,16 @@ export async function readColumnBlogsName(columnName: string) {
  * @returns 
  */
 export async function readColumnBlogs(columnName: string) {
-    const dirPath = path.join(process.cwd(), "src/mdx", columnName)
-    await ensureDir(dirPath)
 
-    const fileNames = await readdir(dirPath);
-
+    const filePaths = await readColumnBlogsPaths(columnName)
     const blogInfoArr: I_BlogInfo[] = []
-    for (const fileName of fileNames) {
-        const filePath = path.join(dirPath, fileName);
-        if (!isMdxFile(filePath)) continue;
+    for (const filePath of filePaths) {
         const fileContent = await readFile(filePath, "utf-8");
         let { data: frontMatter, content } = matter(fileContent)
         const source = await serialize(content)
 
         const md5Tag = md5(source?.compiledSource)
         if (frontMatter?.md5 != md5Tag) {
-
             if (frontMatter?.md5 != undefined) {
                 frontMatter.updateTime = dayjs().format("YYYY-MM-DD HH:mm:ss")
             }
@@ -81,6 +79,7 @@ export async function readColumnBlogs(columnName: string) {
         }
         const newFileContent = matter.stringify(content, frontMatter)
         writeFileSync(filePath, newFileContent)
+        const fileName = filePath.lastIndexOf("/") == -1 ? filePath : filePath.substring(filePath.lastIndexOf("/") + 1)
         blogInfoArr.push({
             fileName: fileName,
             frontMatter,

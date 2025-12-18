@@ -15,7 +15,6 @@ export default function (props: Props) {
 
 export async function getStaticPaths() {
     const blogsName = await readColumnBlogsName(info.column)
-
     return {
         paths: blogsName.map(item => ({ params: { id: item } })),
         fallback: false, // 如果没有匹配的路径，返回 404
