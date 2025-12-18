@@ -26,23 +26,23 @@ export function useMenuConfig() {
                 {
                     label: "React Native",
                     key: "/react-native",
-                    icon: <i className="devicon-react-original"></i>
+                    // icon: <i className="devicon-react-original"></i>
                 },
                 {
                     label: "App送审",
                     key: "/app-approve",
-                    icon: <MobileOutlined />
+                    // icon: <MobileOutlined />
                 },
 
                 {
                     label: "JavaScript",
                     key: "/javascript",
-                    icon: <i className="devicon-javascript-plain colored"></i>
+                    // icon: <i className="devicon-javascript-plain colored"></i>
                 },
                 {
                     label: "Html",
                     key: "/web-development",
-                    icon: <i className="devicon-html5-plain colored"></i>
+                    // icon: <i className="devicon-html5-plain colored"></i>
                 }
             ]
         },
