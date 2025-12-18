@@ -2,15 +2,11 @@ import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { FloatButton, Layout, Menu, theme } from 'antd';
 import { useMenuConfig } from '@/config/MenuConfig';
 import { useRouter } from 'next/router';
-import ToTop from '../ToTop';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 const BlogLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
   const siderStyle: React.CSSProperties = {
     overflow: 'auto',
     height: '100vh',
@@ -51,16 +47,10 @@ const BlogLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       <Layout>
         <Content
           ref={rightPartDomRef}
-          style={{ overflow: "scroll", display: "flex", margin: 14, position: "relative" }}
+          style={{ display: "flex" }}
           onScroll={onInvokeWhenScroll}
         >
           {children}
-          <FloatButton.BackTop />
-          {
-            hasScrollbar && (
-              <ToTop onClick={() => rightPartDomRef.current?.scrollTo({ top: 1 })} />
-            )
-          }
         </Content>
       </Layout>
     </Layout >

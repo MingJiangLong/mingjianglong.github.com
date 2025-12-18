@@ -1,6 +1,5 @@
 import BlogCard from '@/components/BlogCard';
 import { I_BlogInfo } from "@/utils/readBlogs";
-import { Affix } from 'antd';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { Input, Space } from 'antd';
@@ -26,7 +25,7 @@ export default function (props: Props) {
         onPress(fileName)
     }
     return (
-        <div style={{ flex: 1, rowGap: 40, padding: 25, display: 'flex', flexDirection: "column", alignItems: 'center', }}>
+        <div style={{ flex: 1, rowGap: 40, padding: 25, display: 'flex', flexDirection: "column", alignItems: 'center', overflowY: "scroll" }}>
             <div style={{ position: "sticky", top: 0, width: "100%", background: "#FFFFFF", zIndex: 100 }}>
                 <Search placeholder="输入关键词搜索" onSearch={setSearchStr} />
             </div>

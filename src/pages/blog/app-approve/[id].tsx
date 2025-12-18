@@ -8,7 +8,6 @@ export default function (props: Props) {
     return (
         <BlogFileContainer serializeResult={serializeResult} />
     )
-
 }
 
 

@@ -1,4 +1,4 @@
-import { I_BlogInfo, readColumnBlog, readColumnBlogsName } from "@/utils/readBlogs";
+import { I_BlogInfo, readColumnBlog } from "@/utils/readBlogs";
 import BlogFileContainer from "@/components/BlogFileContainer";
 import info from './index.json'
 type Props = {
