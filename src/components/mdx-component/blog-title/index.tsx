@@ -10,7 +10,6 @@ export default function BlogTitle(
 
     const anchors = useAnchor();
     function onAddAnchorAndSetId() {
-        console.log("title", props.children);
         const children = props.children;
         if (typeof children !== "string") return;
         const id = anchors.addAnchors?.(children);

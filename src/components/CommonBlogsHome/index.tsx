@@ -31,7 +31,7 @@ export default function (props: Props) {
             </div>
             {
                 filteredBlogInfoArr.map(item => <BlogCard
-                    key={item.frontMatter.title}
+                    key={`${item.frontMatter.title}_${item.fileName}`}
                     {...item.frontMatter}
                     onClick={() => onClick(item.fileName)}
                 />)

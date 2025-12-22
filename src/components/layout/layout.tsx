@@ -1,5 +1,5 @@
-import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
-import { FloatButton, Layout, Menu, theme } from 'antd';
+import React, { PropsWithChildren, useRef, useState } from 'react';
+import { Layout, Menu } from 'antd';
 import { useMenuConfig } from '@/config/MenuConfig';
 import { useRouter } from 'next/router';
 
@@ -17,23 +17,6 @@ const BlogLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 
   const router = useRouter()
   const items = useMenuConfig()
-
-  const rightPartDomRef = useRef<HTMLDivElement>(null)
-
-  const [hasScrollbar, setHasScrollbar] = useState(false);
-
-  const checkTimer = useRef<NodeJS.Timeout>()
-
-  function onInvokeWhenScroll(e: React.UIEvent<HTMLDivElement, UIEvent>) {
-    if (checkTimer.current || !rightPartDomRef.current) return;
-    setHasScrollbar(rightPartDomRef.current.scrollTop > 50)
-    checkTimer.current = setTimeout(() => {
-      if (!checkTimer.current) return;
-      clearTimeout(checkTimer.current)
-      checkTimer.current = undefined;
-    }, 100)
-
-  }
   return (
     <Layout style={{ height: '100vh', overflow: "hidden" }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={siderStyle}>
@@ -46,9 +29,7 @@ const BlogLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       </Sider>
       <Layout>
         <Content
-          ref={rightPartDomRef}
           style={{ display: "flex" }}
-          onScroll={onInvokeWhenScroll}
         >
           {children}
         </Content>

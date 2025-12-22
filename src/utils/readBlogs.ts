@@ -16,24 +16,17 @@ import fg from 'fast-glob'
  * @returns 
  */
 export async function readColumnBlog(columnName: string, fileName: string) {
-    const filePath = path.join(process.cwd(), "src/mdx", columnName, fileName)
-    if (!isMdxFile(filePath)) throw new Error(`${filePath}不是一个mdx文件!`)
+    const filePaths = await readColumnBlogsPaths(columnName);
+    const filePath = filePaths.find(filePath => filePath.endsWith(fileName)) as string;
     const fileContent = await readFile(filePath, "utf-8");
     const { data: frontMatter, content } = matter(fileContent)
     const serializeResult = await serialize(content, { mdxOptions: { format: "mdx" }, parseFrontmatter: false })
-
     return {
         fileName: fileName,
         frontMatter,
         serializeResult
     }
 }
-
-export async function isMdxFile(path: string) {
-    const stats = await lstat(path)
-    return path.endsWith(".mdx") && stats.isFile()
-}
-
 
 async function readColumnBlogsPaths(columnName: string) {
     const dirPath = path.join(process.cwd(), "src/mdx", columnName)
@@ -50,8 +43,6 @@ async function readColumnBlogsPaths(columnName: string) {
 export async function readColumnBlogsName(columnName: string) {
     const filePaths = await readColumnBlogsPaths(columnName)
     return filePaths.map(item => item.lastIndexOf("/") == -1 ? item : item.substring(item.lastIndexOf("/") + 1))
-
-
 }
 /**
  * 读取专栏下所有的blog文件
@@ -87,7 +78,7 @@ export async function readColumnBlogs(columnName: string) {
         })
     }
 
-
+    let haveTopLevelBlogInfoArr: I_BlogInfo[] = []
     let haveLevelBlogInfoArr: I_BlogInfo[] = []
     let haveCreateTimeBlogInfoArr: I_BlogInfo[] = []
     let haveUpdateTimeBlogInfoArr: I_BlogInfo[] = []
@@ -96,7 +87,12 @@ export async function readColumnBlogs(columnName: string) {
 
     for (let blogInfo of blogInfoArr) {
         const frontMatter = blogInfo.frontMatter
+
         if (frontMatter.topLevel) {
+            haveTopLevelBlogInfoArr.push(blogInfo)
+            continue
+        }
+        if (frontMatter.level) {
             haveLevelBlogInfoArr.push(blogInfo)
             continue
         }
@@ -110,8 +106,9 @@ export async function readColumnBlogs(columnName: string) {
         }
         leftBlogInfoArr.push(blogInfo)
     }
+
     haveLevelBlogInfoArr = haveLevelBlogInfoArr.sort((a, b) => {
-        return dayjs(b.frontMatter.updateTime).unix() - dayjs(a.frontMatter.updateTime).unix()
+        return b.frontMatter.level - a.frontMatter.level
     })
     haveUpdateTimeBlogInfoArr = haveUpdateTimeBlogInfoArr.sort((a, b) => {
         return dayjs(b.frontMatter.updateTime).unix() - dayjs(a.frontMatter.updateTime).unix()
@@ -121,7 +118,7 @@ export async function readColumnBlogs(columnName: string) {
         return dayjs(b.frontMatter.createTime).unix() - dayjs(a.frontMatter.createTime).unix()
     })
     // 优先level排名 再编辑时间排名
-    return [...haveLevelBlogInfoArr, ...haveUpdateTimeBlogInfoArr, ...haveCreateTimeBlogInfoArr, ...leftBlogInfoArr]
+    return [...haveTopLevelBlogInfoArr, ...haveLevelBlogInfoArr, ...haveUpdateTimeBlogInfoArr, ...haveCreateTimeBlogInfoArr, ...leftBlogInfoArr]
 }
 
 export interface I_BlogInfo {

@@ -12,9 +12,10 @@ import { BlogBlockquote } from "../blog-blockquote";
 import BlogLink from "../blog-link";
 import BlogMermaid from "../blog-mermaid";
 import BlogWork from "../blog-work";
-import { BlogAnchorProvider } from "../blog-anchor";
-import { BlogAnchorContext } from "@/hooks/useAnchor";
-
+import FileInfo from "@/components/FileInfo";
+import { Typography } from 'antd'
+import BlogText from "../blog-text";
+const { Text } = Typography
 const components: MDXComponents = {
     code: (props) => <BlogCode {...props} />,
     h1: props => <BlogTitle children={props.children} level={1} />,
@@ -25,7 +26,9 @@ const components: MDXComponents = {
     p: (props: any) => <BlogParagraph {...props} />,
     ul: (props) => (< BlogUl {...props} />),
     ol: (props) => (<BlogOl {...props} />),
-    li: (props) => (<BlogLi {...props} />),
+    li: (props) => {
+        return (<BlogLi {...props} />)
+    },
     blockquote: (props) => <BlogBlockquote {...props} />,
     img: ({ src, alt }) => {
         return <img src={src} alt={alt} style={{ maxWidth: '100%', borderRadius: '8px', padding: "2em" }} />
@@ -44,6 +47,8 @@ const components: MDXComponents = {
     WorkContent: ({ data }) => <BlogWork data={data} />,
     Tag: ({ children }) => <Tag>{children}</Tag>,
     BlogTitle: props => <BlogTitle {...props} />,
+    FileInfo: props => <FileInfo {...props} />,
+    Text: props => <BlogText {...props} />
 }
 
 
@@ -53,7 +58,7 @@ export type MdxContainerProps = PropsWithChildren<{
 export default function BlogProvider(props: MdxContainerProps) {
     const { children } = props
     return (
-        <MDXProvider components={components}>
+        <MDXProvider components={components} >
             {children}
         </MDXProvider>
     )
