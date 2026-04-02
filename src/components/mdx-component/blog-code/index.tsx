@@ -98,6 +98,7 @@ export default function MdxCode(props: MdxCodeProps) {
                         showInlineLineNumbers
                         showLineNumbers
                         wrapLines
+                        wrapLongLines
                         customStyle={{
                             flex: 1,
                             borderRadius: 0,

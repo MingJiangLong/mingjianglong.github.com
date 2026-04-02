@@ -113,7 +113,8 @@ export default function Home(props: HomeProps) {
         flexDirection: "column",
       }}
     >
-      <canvas id="snowCanvas" ref={canvasRef} style={{ flex: 1 }} />
+      <img src="/md-images/wolf.jpg" style={{ maxWidth: '100%', borderRadius: '8px', padding: "2em" }} />
+      <canvas id="snowCanvas" ref={canvasRef} style={{ position: "absolute", width: "100%", height: "100%" }} />
     </div>
   )
 }

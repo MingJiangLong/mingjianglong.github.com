@@ -1,0 +1,21 @@
+---
+title: MCP
+md5: 61f21c4f122c292afcffece2bde8271f
+createTime: '2026-02-13 11:26:31'
+updateTime: '2026-02-13 11:34:32'
+---
+
+# MCP
+
+    [MCP(Model Context Protocol,模型上下文协议)](https://www.anthropic.com/news/model-context-protocol)是由 Anthropic 公司于 2024 年 11 月推出的一个开源开放标准。 
+## 核心作用
+
+    MCP 旨在解决 AI 模型与外部世界隔离的问题。传统的 AI 受限于训练数据的截止日期，无法直接访问你的本地文件、实时数据库或特定软件（如 Figma、GitHub）
+
+    - 标准化连接：以前为每个 AI 工具集成数据（如 RAG 或函数调用）都需要编写特定的代码；有了 MCP，只需编写一次“服务器”程序，任何支持 MCP 的 AI 客户端都能直接调取其中的数据。
+    - 提供实时上下文：让 AI 能够“看到”和“操作”外部工具，从而生成更准确、与当前任务高度相关的回答。 
+
+## 主要能力 
+- Resources（资源）：让 AI 读取数据（如文件内容、数据库记录）。
+- Tools（工具）：让 AI 执行动作（如发送邮件、运行代码、在 Figma 中创建图层）。
+- Prompts（提示词模版）：提供预设的工作流模板。

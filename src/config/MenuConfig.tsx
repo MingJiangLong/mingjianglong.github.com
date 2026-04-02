@@ -29,6 +29,10 @@ export function useMenuConfig() {
                     // icon: <i className="devicon-react-original"></i>
                 },
                 {
+                    label: "AI",
+                    key: "/ai",
+                },
+                {
                     label: "App送审",
                     key: "/app-approve",
                     // icon: <MobileOutlined />
