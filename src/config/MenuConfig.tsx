@@ -44,6 +44,10 @@ export function useMenuConfig() {
                     // icon: <i className="devicon-javascript-plain colored"></i>
                 },
                 {
+                    label: "项目管理相关",
+                    key: "/project-management",
+                },
+                {
                     label: "Html",
                     key: "/web-development",
                     // icon: <i className="devicon-html5-plain colored"></i>
